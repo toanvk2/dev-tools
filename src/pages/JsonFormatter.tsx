@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Row, Col, Typography, Button, message } from 'antd';
 import Editor from '@monaco-editor/react';
+import { useAppStore } from '../store/useAppStore';
 
 const { Title } = Typography;
 
 const JsonFormatter: React.FC = () => {
   const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>('');
+  const appTheme = useAppStore(state => state.theme);
 
   const formatJson = () => {
     try {
@@ -23,6 +25,8 @@ const JsonFormatter: React.FC = () => {
     }
   };
 
+  const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
+
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Title level={3}>JSON Formatter</Title>
@@ -31,23 +35,27 @@ const JsonFormatter: React.FC = () => {
       </div>
       <Row gutter={16} style={{ flex: 1, minHeight: '60vh' }}>
         <Col span={12}>
-          <Editor
-            height="100%"
-            defaultLanguage="json"
-            theme="vs-dark"
-            value={input}
-            onChange={(val) => setInput(val || '')}
-            options={{ minimap: { enabled: false }, formatOnPaste: true }}
-          />
+          <div style={{ border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', height: '100%', borderRadius: 6, overflow: 'hidden' }}>
+            <Editor
+              height="100%"
+              defaultLanguage="json"
+              theme={editorTheme}
+              value={input}
+              onChange={(val) => setInput(val || '')}
+              options={{ minimap: { enabled: false }, formatOnPaste: true }}
+            />
+          </div>
         </Col>
         <Col span={12}>
-          <Editor
-            height="100%"
-            defaultLanguage="json"
-            theme="vs-dark"
-            value={output}
-            options={{ readOnly: true, minimap: { enabled: false } }}
-          />
+          <div style={{ border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', height: '100%', borderRadius: 6, overflow: 'hidden' }}>
+            <Editor
+              height="100%"
+              defaultLanguage="json"
+              theme={editorTheme}
+              value={output}
+              options={{ readOnly: true, minimap: { enabled: false } }}
+            />
+          </div>
         </Col>
       </Row>
     </div>
