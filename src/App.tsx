@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme, ConfigProvider, Button } from 'antd';
 import { AppstoreOutlined, CodeOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
@@ -9,10 +9,10 @@ import { useAppStore } from './store/useAppStore';
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppLayout: React.FC = () => {
-  const { appTheme, toggleTheme } = useAppStore(state => ({ 
-    appTheme: state.theme, 
-    toggleTheme: state.toggleTheme 
-  }));
+  // Lỗi "Maximum update depth exceeded" do việc trả về 1 object mới {} trong state selector của Zustand
+  // Sửa lại: Tách riêng từng selector để tránh việc useSyncExternalStore (core của zustand) bị lặp vô tận.
+  const appTheme = useAppStore(state => state.theme);
+  const toggleTheme = useAppStore(state => state.toggleTheme);
   
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -95,12 +95,12 @@ const AppLayout: React.FC = () => {
 const App: React.FC = () => {
   const appTheme = useAppStore(state => state.theme);
   
+  const antdTheme = useMemo(() => ({
+    algorithm: appTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+  }), [appTheme]);
+
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: appTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      }}
-    >
+    <ConfigProvider theme={antdTheme}>
       <BrowserRouter>
         <AppLayout />
       </BrowserRouter>
