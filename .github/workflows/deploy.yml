@@ -1,0 +1,60 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Chạy script khi có code được push lên nhánh main hoặc master
+  push:
+    branches:
+      - main
+      - master
+  # Cho phép chạy bằng tay trên giao diện Github
+  workflow_dispatch:
+
+# Cấp quyền cho Github Actions đọc code và ghi vào Github Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Tránh việc chạy song song 2 bản build cùng lúc gây xung đột
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lấy Source Code
+        uses: actions/checkout@v4
+
+      - name: Cài đặt pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Cài đặt Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Cài đặt thư viện (Install)
+        run: pnpm install
+
+      - name: Build ứng dụng (Build)
+        run: pnpm build
+
+      - name: Cấu hình Github Pages
+        uses: actions/configure-pages@v4
+
+      - name: Tải thư mục dist lên máy chủ Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy (Phát hành)
+        id: deployment
+        uses: actions/deploy-pages@v4
