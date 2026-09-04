@@ -5,7 +5,7 @@ import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
 import { Base64 } from 'js-base64';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const processData = (input: string, type: string, mode: 'encode' | 'decode') => {
   if (!input) return '';
@@ -106,7 +106,6 @@ const TextEncoder: React.FC = () => {
         />
       </div>
 
-      </div>
       
       <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
         <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
@@ -128,7 +127,6 @@ const TextEncoder: React.FC = () => {
         
         <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center' }}>
-            <Text strong>Output (Kết quả)</Text>
           </div>
           <div style={{ flex: 1, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
             <Editor

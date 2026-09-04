@@ -6,7 +6,7 @@ import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
 
 const ReactJson = (ReactJsonRaw as any).default || ReactJsonRaw;
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const JsonFormatter: React.FC = () => {
   const [input, setInput] = useCacheState<string>('json-input', '');
@@ -47,11 +47,6 @@ const JsonFormatter: React.FC = () => {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ marginBottom: 16, display: 'flex' }}>
-        <Checkbox checked={useJsEval} onChange={(e) => setUseJsEval(e.target.checked)}>
-          JS Eval Mode (Cho phép Parse JS Object)
-        </Checkbox>
-      </div>
-
         <Checkbox 
           checked={useJsEval} 
           onChange={(e) => setUseJsEval(e.target.checked)}

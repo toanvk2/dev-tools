@@ -1,11 +1,11 @@
-import React from "react";
-import { useCacheState } from "../hooks/useCacheState";
+import React from 'react';
 import { Row, Col, Typography, Input, Tag } from 'antd';
 import Editor from '@monaco-editor/react';
 import { useAppStore } from '../store/useAppStore';
+import { useCacheState } from '../hooks/useCacheState';
 import { Base64 } from 'js-base64';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 const { TextArea } = Input;
 
 const JwtParser: React.FC = () => {
@@ -26,14 +26,14 @@ const JwtParser: React.FC = () => {
         signature = parts[2];
       }
     } catch (e) {
+      // ignore
     }
   }
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Title level={3}>JWT Parser</Title>
       <div style={{ marginBottom: 16 }}>
-        <Text>Phân tích cú pháp và giải mã JSON Web Token cục bộ, không gửi dữ liệu ra ngoài.</Text>
+        <Text type="secondary">Phân tích cú pháp và giải mã JSON Web Token cục bộ, không gửi dữ liệu ra ngoài.</Text>
       </div>
 
       <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
