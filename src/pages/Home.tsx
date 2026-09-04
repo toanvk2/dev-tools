@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { CodeOutlined, SwapOutlined, SecurityScanOutlined, ThunderboltOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
@@ -37,13 +37,13 @@ const Home: React.FC = () => {
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '40px 0' }}>
       <div style={{ textAlign: 'center', marginBottom: 60 }}>
-        <ThunderboltOutlined style={{ fontSize: 56, color: '#faad14', marginBottom: 24 }} />
+        <img src="./favicon.svg" alt="Web DevTools Logo" style={{ width: 80, height: 80, marginBottom: 24 }} />
         <Title level={1} style={{ marginBottom: 16 }}>Web DevTools Collection</Title>
         <Paragraph style={{ fontSize: 18, color: '#8c8c8c' }}>
           Bộ công cụ tối thượng dành cho Developer.
         </Paragraph>
         <Paragraph style={{ fontSize: 16, maxWidth: 600, margin: '0 auto' }}>
-          Tất cả các tác vụ xử lý dữ liệu đều được thực hiện <strong>100% tại Client-side (Trình duyệt)</strong>, 
+          Tất cả các tác vụ xử lý dữ liệu đều được thực hiện <strong>100% tại Client-side (Trình duyệt)</strong>,
           đảm bảo tốc độ cực nhanh và bảo mật tuyệt đối cho dữ liệu nhạy cảm của bạn.
         </Paragraph>
       </div>
@@ -52,10 +52,10 @@ const Home: React.FC = () => {
         {features.map((item, index) => (
           <Col xs={24} sm={12} md={8} key={index}>
             <Link to={item.link} style={{ textDecoration: 'none' }}>
-              <Card 
-                hoverable 
+              <Card
+                hoverable
                 style={{ height: '100%', borderRadius: 16, textAlign: 'center', border: '1px solid #f0f0f0' }}
-                bodyStyle={{ padding: '40px 24px' }}
+                styles={{ body: { padding: '40px 24px' } }}
               >
                 <div style={{ marginBottom: 24 }}>{item.icon}</div>
                 <Title level={4} style={{ marginBottom: 16 }}>{item.title}</Title>
