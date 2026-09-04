@@ -139,7 +139,7 @@ const CodeGenerator: React.FC = () => {
               borderRadius: 6,
               overflow: 'auto'
             }}
-            bodyStyle={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300, width: '100%' }}
+            styles={{ body: { display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300, width: '100%' } }}
           >
             {input ? (
               <div 
