@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme, ConfigProvider, Button } from 'antd';
-import { AppstoreOutlined, CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined } from '@ant-design/icons';
+import { CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined } from '@ant-design/icons';
 import Home from './pages/Home';
 import JsonFormatter from './pages/JsonFormatter';
 import Base64Tool from './pages/Base64Tool';
@@ -24,32 +24,30 @@ const AppLayout: React.FC = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider breakpoint="lg" collapsedWidth="0" theme={appTheme}>
-        <div 
-          style={{ 
-            height: 32, 
-            margin: 16, 
-            background: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.05)', 
-            borderRadius: 6, 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            color: isDark ? '#fff' : '#000', 
-            fontWeight: 'bold',
-            transition: 'all 0.3s'
-          }}
-        >
-          DEV TOOLS
-        </div>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <div 
+            style={{ 
+              height: 32, 
+              margin: 16, 
+              background: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.05)', 
+              borderRadius: 6, 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              color: isDark ? '#fff' : '#000', 
+              fontWeight: 'bold',
+              transition: 'all 0.3s',
+              cursor: 'pointer'
+            }}
+          >
+            DEV TOOLS
+          </div>
+        </Link>
         <Menu
           theme={appTheme}
           mode="inline"
           selectedKeys={[location.pathname]}
           items={[
-            {
-              key: '/',
-              icon: <AppstoreOutlined />,
-              label: <Link to="/">Trang chủ</Link>,
-            },
             {
               key: '/json-formatter',
               icon: <CodeOutlined />,
