@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from "react";
+import { useCacheState } from "../hooks/useCacheState";
 import { Row, Col, Typography, Input, Tag } from 'antd';
 import Editor from '@monaco-editor/react';
 import { useAppStore } from '../store/useAppStore';
@@ -8,7 +9,7 @@ const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 const JwtParser: React.FC = () => {
-  const [jwt, setJwt] = useState('');
+  const [jwt, setJwt] = useCacheState<string>('jwt-input', '');
   const appTheme = useAppStore(state => state.theme);
   const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
 

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useCacheState } from "../hooks/useCacheState";
 import { Row, Col, Typography, Input, Radio } from 'antd';
 import { Base64 } from 'js-base64';
 
@@ -6,9 +7,9 @@ const { Title } = Typography;
 const { TextArea } = Input;
 
 const Base64Tool: React.FC = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useCacheState<string>('base64-input', '');
   const [output, setOutput] = useState('');
-  const [mode, setMode] = useState<'encode' | 'decode'>('encode');
+  const [mode, setMode] = useCacheState<'encode' | 'decode'>('base64-mode', 'encode');
 
   useEffect(() => {
     if (!input) {

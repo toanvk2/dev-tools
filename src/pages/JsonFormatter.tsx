@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useCacheState } from "../hooks/useCacheState";
 import { Row, Col, Typography, Tabs, Checkbox } from 'antd';
 import Editor from '@monaco-editor/react';
 import ReactJson from 'react-json-view';
@@ -7,11 +8,11 @@ import { useAppStore } from '../store/useAppStore';
 const { Title, Text } = Typography;
 
 const JsonFormatter: React.FC = () => {
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useCacheState<string>('json-input', '');
   const [parsedData, setParsedData] = useState<any>(null);
   const [outputRaw, setOutputRaw] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [useJsEval, setUseJsEval] = useState<boolean>(false);
+  const [useJsEval, setUseJsEval] = useCacheState<boolean>('json-useJsEval', false);
   
   const appTheme = useAppStore(state => state.theme);
   const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
