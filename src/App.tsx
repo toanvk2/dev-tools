@@ -4,7 +4,7 @@ import { Layout, Menu, theme, ConfigProvider, Button } from 'antd';
 import { CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined } from '@ant-design/icons';
 import Home from './pages/Home';
 import JsonFormatter from './pages/JsonFormatter';
-import Base64Tool from './pages/Base64Tool';
+import TextEncoder from './pages/TextEncoder';
 import JwtParser from './pages/JwtParser';
 import { useAppStore } from './store/useAppStore';
 
@@ -54,9 +54,9 @@ const AppLayout: React.FC = () => {
               label: <Link to="/json-formatter">JSON Formatter</Link>,
             },
             {
-              key: '/base64',
+              key: '/encoder',
               icon: <SwapOutlined />,
-              label: <Link to="/base64">Base64 Encode/Decode</Link>,
+              label: <Link to="/encoder">Text Encoders/Decoders</Link>,
             },
             {
               key: '/jwt',
@@ -89,7 +89,7 @@ const AppLayout: React.FC = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
-              <Route path="/base64" element={<Base64Tool />} />
+              <Route path="/encoder" element={<TextEncoder />} />
               <Route path="/jwt" element={<JwtParser />} />
             </Routes>
           </div>

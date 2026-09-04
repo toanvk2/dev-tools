@@ -14,10 +14,10 @@ const Home: React.FC = () => {
       link: '/json-formatter'
     },
     {
-      title: 'Base64 Encode / Decode',
-      description: 'Mã hoá và giải mã chuỗi Base64 cực kỳ nhanh chóng và an toàn.',
+      title: 'Text Encoders / Decoders',
+      description: 'Mã hoá và giải mã đa định dạng (Base64, URL, Unicode, HTML, Hex) trong 1 thao tác.',
       icon: <SwapOutlined style={{ fontSize: 40, color: '#52c41a' }} />,
-      link: '/base64'
+      link: '/encoder'
     },
     {
       title: 'JWT Parser',
