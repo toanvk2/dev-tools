@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme, ConfigProvider, Button, Typography } from 'antd';
-import { CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined } from '@ant-design/icons';
+import { CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
 import Home from './pages/Home';
 import JsonFormatter from './pages/JsonFormatter';
 import TextEncoder from './pages/TextEncoder';
 import JwtParser from './pages/JwtParser';
+import CodeGenerator from './pages/CodeGenerator';
+
 import { useAppStore } from './store/useAppStore';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -27,6 +29,8 @@ const AppLayout: React.FC = () => {
       case '/': return 'Web DevTools Collection';
       case '/json-formatter': return 'JSON Formatter';
       case '/encoder': return 'Text Encoders / Decoders';
+      case '/generator': return 'QR & Barcode Generator';
+
       case '/jwt': return 'JWT Parser';
       default: return 'DevTools';
     }
@@ -70,6 +74,12 @@ const AppLayout: React.FC = () => {
               label: <Link to="/encoder">Text Encoders/Decoders</Link>,
             },
             {
+              key: '/generator',
+              icon: <BarcodeOutlined />,
+              label: <Link to="/generator">QR & Barcode Generator</Link>,
+
+            },
+            {
               key: '/jwt',
               icon: <SecurityScanOutlined />,
               label: <Link to="/jwt">JWT Parser</Link>,
@@ -104,6 +114,8 @@ const AppLayout: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
               <Route path="/encoder" element={<TextEncoder />} />
+              <Route path="/generator" element={<CodeGenerator />} />
+
               <Route path="/jwt" element={<JwtParser />} />
             </Routes>
           </div>

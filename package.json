@@ -16,6 +16,7 @@
     "js-base64": "^3.9.2",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.8",
+    "react-barcode": "^1.6.1",
     "react-dom": "^19.2.8",
     "react-json-view": "^1.21.3",
     "react-router-dom": "^7.18.2",

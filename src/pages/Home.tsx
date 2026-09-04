@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { CodeOutlined, SwapOutlined, SecurityScanOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { CodeOutlined, SwapOutlined, SecurityScanOutlined, ThunderboltOutlined, BarcodeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
@@ -24,6 +24,13 @@ const Home: React.FC = () => {
       description: 'Phân tích và giải mã JSON Web Token (JWT) cục bộ không cần gửi qua Server.',
       icon: <SecurityScanOutlined style={{ fontSize: 40, color: '#722ed1' }} />,
       link: '/jwt'
+    },
+    {
+      title: 'QR & Barcode Generator',
+      description: 'Tạo mã QR và Mã vạch (CODE128, EAN, UPC) với nhiều tùy chọn. Tải xuống định dạng ảnh chất lượng cao.',
+      icon: <BarcodeOutlined style={{ fontSize: 40, color: '#fa8c16' }} />,
+      link: '/generator'
+
     }
   ];
 
