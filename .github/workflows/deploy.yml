@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Lấy Source Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Cài đặt pnpm
         uses: pnpm/action-setup@v3
@@ -36,7 +36,7 @@ jobs:
           version: 9
 
       - name: Cài đặt Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: 'pnpm'
