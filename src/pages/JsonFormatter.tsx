@@ -46,10 +46,12 @@ const JsonFormatter: React.FC = () => {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-        <div>
-          <Title level={3} style={{ margin: 0 }}>JSON Formatter</Title>
-        </div>
+      <div style={{ marginBottom: 16, display: 'flex' }}>
+        <Checkbox checked={useJsEval} onChange={(e) => setUseJsEval(e.target.checked)}>
+          JS Eval Mode (Cho phép Parse JS Object)
+        </Checkbox>
+      </div>
+
         <Checkbox 
           checked={useJsEval} 
           onChange={(e) => setUseJsEval(e.target.checked)}

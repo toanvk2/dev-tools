@@ -83,30 +83,29 @@ const TextEncoder: React.FC = () => {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Title level={3} style={{ margin: 0 }}>Encoder / Decoder</Title>
-        <div style={{ display: 'flex', gap: 16 }}>
-          <Select 
-            value={type} 
-            onChange={(val) => setType(val)} 
-            style={{ width: 160 }}
-            options={[
-              { label: 'Base64', value: 'base64' },
-              { label: 'URL Format', value: 'url' },
-              { label: 'Unicode (\\uXXXX)', value: 'unicode' },
-              { label: 'HTML Entity', value: 'html' },
-              { label: 'Hex String', value: 'hex' },
-            ]}
-          />
-          <Segmented
-            options={[
-              { label: 'Mã hoá (Encode)', value: 'encode' },
-              { label: 'Giải mã (Decode)', value: 'decode' }
-            ]}
-            value={mode}
-            onChange={(val) => setMode(val as 'encode' | 'decode')}
-          />
-        </div>
+      <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
+        <Select 
+          value={type} 
+          onChange={(val) => setType(val)} 
+          style={{ width: 160 }}
+          options={[
+            { label: 'Base64', value: 'base64' },
+            { label: 'URL Format', value: 'url' },
+            { label: 'Unicode (\\uXXXX)', value: 'unicode' },
+            { label: 'HTML Entity', value: 'html' },
+            { label: 'Hex String', value: 'hex' },
+          ]}
+        />
+        <Segmented
+          options={[
+            { label: 'Mã hoá (Encode)', value: 'encode' },
+            { label: 'Giải mã (Decode)', value: 'decode' }
+          ]}
+          value={mode}
+          onChange={(val) => setMode(val as 'encode' | 'decode')}
+        />
+      </div>
+
       </div>
       
       <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Layout, Menu, theme, ConfigProvider, Button } from 'antd';
+import { Layout, Menu, theme, ConfigProvider, Button, Typography } from 'antd';
 import { CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined } from '@ant-design/icons';
 import Home from './pages/Home';
 import JsonFormatter from './pages/JsonFormatter';
@@ -9,6 +9,7 @@ import JwtParser from './pages/JwtParser';
 import { useAppStore } from './store/useAppStore';
 
 const { Header, Content, Footer, Sider } = Layout;
+const { Title } = Typography;
 
 const AppLayout: React.FC = () => {
   const appTheme = useAppStore(state => state.theme);
@@ -20,6 +21,16 @@ const AppLayout: React.FC = () => {
   const location = useLocation();
 
   const isDark = appTheme === 'dark';
+
+  const getPageTitle = (path: string) => {
+    switch (path) {
+      case '/': return 'Web DevTools Collection';
+      case '/json-formatter': return 'JSON Formatter';
+      case '/encoder': return 'Text Encoders / Decoders';
+      case '/jwt': return 'JWT Parser';
+      default: return 'DevTools';
+    }
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -67,7 +78,8 @@ const AppLayout: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: '0 24px', background: colorBgContainer, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', transition: 'all 0.3s' }}>
+        <Header style={{ padding: '0 24px', background: colorBgContainer, display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.3s' }}>
+          <Title level={4} style={{ margin: 0 }}>{getPageTitle(location.pathname)}</Title>
           <Button
             type="text"
             icon={isDark ? <SunOutlined /> : <MoonOutlined />}
@@ -83,7 +95,9 @@ const AppLayout: React.FC = () => {
               height: '100%',
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
-              transition: 'all 0.3s'
+              transition: 'all 0.3s',
+              display: 'flex',
+              flexDirection: 'column'
             }}
           >
             <Routes>
