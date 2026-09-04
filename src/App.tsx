@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme, ConfigProvider, Button } from 'antd';
-import { AppstoreOutlined, CodeOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined } from '@ant-design/icons';
 import Home from './pages/Home';
 import JsonFormatter from './pages/JsonFormatter';
+import Base64Tool from './pages/Base64Tool';
+import JwtParser from './pages/JwtParser';
 import { useAppStore } from './store/useAppStore';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppLayout: React.FC = () => {
-  // Lỗi "Maximum update depth exceeded" do việc trả về 1 object mới {} trong state selector của Zustand
-  // Sửa lại: Tách riêng từng selector để tránh việc useSyncExternalStore (core của zustand) bị lặp vô tận.
   const appTheme = useAppStore(state => state.theme);
   const toggleTheme = useAppStore(state => state.toggleTheme);
   
@@ -55,6 +55,16 @@ const AppLayout: React.FC = () => {
               icon: <CodeOutlined />,
               label: <Link to="/json-formatter">JSON Formatter</Link>,
             },
+            {
+              key: '/base64',
+              icon: <SwapOutlined />,
+              label: <Link to="/base64">Base64 Encode/Decode</Link>,
+            },
+            {
+              key: '/jwt',
+              icon: <SecurityScanOutlined />,
+              label: <Link to="/jwt">JWT Parser</Link>,
+            },
           ]}
         />
       </Sider>
@@ -81,6 +91,8 @@ const AppLayout: React.FC = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
+              <Route path="/base64" element={<Base64Tool />} />
+              <Route path="/jwt" element={<JwtParser />} />
             </Routes>
           </div>
         </Content>
