@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useCacheState } from "../hooks/useCacheState";
 import { Row, Col, Typography, Tabs, Checkbox } from 'antd';
 import Editor from '@monaco-editor/react';
-import ReactJson from 'react-json-view';
+import ReactJsonRaw from "react-json-view";
+const ReactJson = (ReactJsonRaw as any).default || ReactJsonRaw;
 import { useAppStore } from '../store/useAppStore';
 
 const { Title, Text } = Typography;
