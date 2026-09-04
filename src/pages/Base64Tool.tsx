@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Input, Radio, message } from 'antd';
+import { Row, Col, Typography, Input, Radio } from 'antd';
 import { Base64 } from 'js-base64';
 
 const { Title } = Typography;

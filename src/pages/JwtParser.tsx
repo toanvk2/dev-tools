@@ -15,7 +15,6 @@ const JwtParser: React.FC = () => {
   let header = '';
   let payload = '';
   let signature = '';
-  let isValid = false;
 
   if (jwt) {
     try {
@@ -24,10 +23,8 @@ const JwtParser: React.FC = () => {
         header = JSON.stringify(JSON.parse(Base64.decode(parts[0])), null, 2);
         payload = JSON.stringify(JSON.parse(Base64.decode(parts[1])), null, 2);
         signature = parts[2];
-        isValid = true;
       }
     } catch (e) {
-      isValid = false;
     }
   }
 
