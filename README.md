@@ -1,32 +1,40 @@
-# React + TypeScript + Vite
+# Web DevTools Collection 🛠️
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern, fast, and secure collection of developer tools built with React, TypeScript, Vite, and Ant Design. All data processing is done **100% Client-side** directly in your browser, ensuring maximum privacy and speed.
 
-Currently, two official plugins are available:
+🟢 **Live Demo:** [https://toanvk2.github.io/dev-tools/](https://toanvk2.github.io/dev-tools/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+- **JSON Formatter:** Format, beautify, and parse JSON strings with an interactive Tree View. Includes a "JS Eval" mode to parse loose JavaScript objects.
+- **Text Encoders / Decoders:** A unified tool to instantly encode/decode Base64, URL formats, Unicode (`\uXXXX`), HTML Entities, and Hex strings.
+- **JWT Parser:** Safely decode JSON Web Tokens locally to inspect Header, Payload, and Signature without sending sensitive tokens to any server.
+- **QR & Barcode Generator:** Generate high-quality QR codes and various Barcode formats (CODE128, EAN13, UPC, etc.) with customizable error correction levels. Download as PNG/SVG.
+- **Persistent State:** Tool inputs are cached in memory so you don't lose data when switching between tabs.
+- **Dark/Light Mode:** Seamless theme toggling to match your system preferences.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 💻 Tech Stack
+- React 18
+- TypeScript
+- Vite
+- Ant Design v5
+- Monaco Editor
+- Zustand (State Management)
 
-## Expanding the Oxlint configuration
+## 🛠️ Local Development
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/toanvk2/dev-tools.git
+   ```
+2. Install dependencies (using pnpm):
+   ```bash
+   pnpm install
+   ```
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## 📜 License
+MIT
