@@ -1,7 +1,7 @@
 # Project Name: DevTools
 
 ## Tech Stack
-- **Framework:** React 18 + Vite
+- **Framework:** React 19 + Vite
 - **Language:** TypeScript
 - **UI Library:** Ant Design (antd)
 - **Icons:** @ant-design/icons

@@ -27,8 +27,7 @@ greet();
 
 > "Talk is cheap. Show me the code." - Linus Torvalds
 
-[Visit Github](${APP_CONFIG.GITHUB_REPO})
-`;
+[Visit Github](${APP_CONFIG.GITHUB_REPO})`;
 
 const MarkdownPreview: React.FC = () => {
   const [mdCode, setMdCode] = useCacheState<string>('md-preview', defaultMd);
@@ -44,9 +43,9 @@ const MarkdownPreview: React.FC = () => {
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Row gutter={24} style={{ flex: 1, margin: 0 }}>
         <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
-          <Card 
-            title="Markdown Editor" 
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
+          <Card
+            title="Markdown Editor"
+            style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
             styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0 } }}
           >
             <Editor
@@ -61,15 +60,15 @@ const MarkdownPreview: React.FC = () => {
         </Col>
 
         <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
-          <Card 
-            title="Live Preview" 
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
+          <Card
+            title="Live Preview"
+            style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
             styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 24, overflowY: 'auto' } }}
           >
-            <div 
-              className="markdown-body" 
+            <div
+              className="markdown-body"
               style={{ background: 'transparent' }}
-              dangerouslySetInnerHTML={{ __html: html }} 
+              dangerouslySetInnerHTML={{ __html: html }}
             />
           </Card>
         </Col>
