@@ -1,12 +1,30 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
 
 const Home: React.FC = () => {
   const features = [
+    {
+      title: 'JSON ↔ YAML',
+      description: 'Chuyển đổi qua lại giữa định dạng JSON và YAML một cách nhanh chóng.',
+      icon: <RetweetOutlined style={{ fontSize: 40, color: '#13c2c2' }} />,
+      link: '/yaml'
+    },
+    {
+      title: 'Regex Tester',
+      description: 'Kiểm tra biểu thức chính quy (Regular Expression) trực quan với Highlight.',
+      icon: <CodeOutlined style={{ fontSize: 40, color: '#2f54eb' }} />,
+      link: '/regex'
+    },
+    {
+      title: 'Markdown Preview',
+      description: 'Soạn thảo Markdown và xem trước giao diện hiển thị ngay lập tức (Live Render).',
+      icon: <FileTextOutlined style={{ fontSize: 40, color: '#fa541c' }} />,
+      link: '/markdown'
+    },
     {
       title: 'JSON Formatter',
       description: 'Định dạng, làm đẹp và phân tích cú pháp JSON. Hỗ trợ JS Eval để đọc Object lỏng lẻo.',
@@ -18,6 +36,12 @@ const Home: React.FC = () => {
       description: 'So sánh hai đoạn Text hoặc Code. Đánh dấu chi tiết từng ký tự thay đổi với Monaco Editor.',
       icon: <DiffOutlined style={{ fontSize: 40, color: '#eb2f96' }} />,
       link: '/diff'
+    },
+    {
+      title: 'URL Parser',
+      description: 'Phân tích Link URL thành các thành phần (Domain, Path, Query Parameters).',
+      icon: <LinkOutlined style={{ fontSize: 40, color: '#eb2f96' }} />,
+      link: '/url-parser'
     },
     {
       title: 'Text Encoders / Decoders',

@@ -14,7 +14,11 @@ const ColorConverter = lazy(() => import('./pages/ColorConverter'));
 const CronParser = lazy(() => import('./pages/CronParser'));
 const RandomGenerator = lazy(() => import('./pages/RandomGenerator'));
 const HtmlViewer = lazy(() => import('./pages/HtmlViewer'));
-import { FieldTimeOutlined, ThunderboltOutlined, DatabaseOutlined, SafetyOutlined, AppstoreAddOutlined, ToolOutlined } from '@ant-design/icons';
+const RegexTester = lazy(() => import('./pages/RegexTester'));
+const YamlConverter = lazy(() => import('./pages/YamlConverter'));
+const UrlParser = lazy(() => import('./pages/UrlParser'));
+const MarkdownPreview = lazy(() => import('./pages/MarkdownPreview'));
+import { FieldTimeOutlined, ThunderboltOutlined, DatabaseOutlined, SafetyOutlined, AppstoreAddOutlined, ToolOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined } from '@ant-design/icons';
 
 import { DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
 
@@ -34,8 +38,8 @@ const AppLayout: React.FC = () => {
   // Find the parent key for the active route
   const getActiveGroup = () => {
     const path = location.pathname;
-    if (['/json-formatter', '/diff'].includes(path)) return 'data';
-    if (['/encoder', '/jwt', '/hash'].includes(path)) return 'security';
+    if (['/json-formatter', '/diff', '/yaml', '/regex', '/markdown'].includes(path)) return 'data';
+    if (['/encoder', '/jwt', '/hash', '/url-parser'].includes(path)) return 'security';
     if (['/random', '/generator'].includes(path)) return 'generators';
     if (['/timestamp', '/cron'].includes(path)) return 'time';
     if (['/color', '/html-viewer'].includes(path)) return 'design';
@@ -96,6 +100,9 @@ const AppLayout: React.FC = () => {
               label: 'Data & Code',
               children: [
                 
+                { key: '/yaml', icon: <RetweetOutlined />, label: <Link to="/yaml">JSON ↔ YAML</Link> },
+                { key: '/regex', icon: <CodeOutlined />, label: <Link to="/regex">Regex Tester</Link> },
+                { key: '/markdown', icon: <FileTextOutlined />, label: <Link to="/markdown">Markdown Preview</Link> },
                 { key: '/json-formatter', icon: <CodeOutlined />, label: <Link to="/json-formatter">JSON Formatter</Link> },
                 { key: '/diff', icon: <DiffOutlined />, label: <Link to="/diff">Diff Checker</Link> }
               ]
@@ -105,6 +112,7 @@ const AppLayout: React.FC = () => {
               icon: <SafetyOutlined />,
               label: 'Crypto & Security',
               children: [
+                { key: '/url-parser', icon: <LinkOutlined />, label: <Link to="/url-parser">URL Parser</Link> },
                 { key: '/encoder', icon: <SwapOutlined />, label: <Link to="/encoder">Text Encoders</Link> },
                 { key: '/jwt', icon: <SecurityScanOutlined />, label: <Link to="/jwt">JWT Parser</Link> },
                 { key: '/hash', icon: <KeyOutlined />, label: <Link to="/hash">Hash Generator</Link> }
@@ -157,6 +165,10 @@ const AppLayout: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/html-viewer" element={<HtmlViewer />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
+<Route path="/yaml" element={<YamlConverter />} />
+              <Route path="/regex" element={<RegexTester />} />
+              <Route path="/url-parser" element={<UrlParser />} />
+              <Route path="/markdown" element={<MarkdownPreview />} />
               <Route path="/encoder" element={<TextEncoder />} />
               <Route path="/jwt" element={<JwtParser />} />
               <Route path="/generator" element={<CodeGenerator />} />

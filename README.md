@@ -6,6 +6,10 @@ A modern, fast, and secure collection of developer tools built with React, TypeS
 
 ## 🚀 Features
 
+- **JSON ↔ YAML Converter:** Convert between JSON and YAML instantly.
+- **Regex Tester:** Test regular expressions against text with capture group inspection.
+- **Markdown Previewer:** Write Markdown and live-preview the rendered HTML.
+- **URL Parser:** Extract Protocol, Domain, Path, and Query parameters from URLs.
 - **HTML Viewer:** Soạn thảo và Live Preview HTML, CSS, JS ngay trên trình duyệt mà không cần Server.
 - **JSON Formatter:** Format, beautify, and parse JSON strings with an interactive Tree View. Includes a "JS Eval" mode.
 - **Diff Checker:** Compare two pieces of text or code side-by-side with Monaco Editor (VS Code core).

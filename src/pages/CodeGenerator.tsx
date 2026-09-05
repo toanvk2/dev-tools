@@ -73,7 +73,7 @@ const CodeGenerator: React.FC = () => {
             <Select 
               value={qrLevel} 
               onChange={setQrLevel} 
-              style={{ width: 120 }}
+              style={{ minWidth: 160 }}
               options={[
                 { label: 'L (Thấp - 7%)', value: 'L' },
                 { label: 'M (Vừa - 15%)', value: 'M' },
