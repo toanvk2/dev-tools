@@ -1,12 +1,18 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
 
 const Home: React.FC = () => {
   const features = [
+    {
+      title: 'HTML Viewer',
+      description: 'Soạn thảo và Live Preview HTML, CSS, JS ngay trên trình duyệt mà không cần Server.',
+      icon: <Html5Outlined style={{ fontSize: 40, color: '#e34f26' }} />,
+      link: '/html-viewer'
+    },
     {
       title: 'JSON Formatter',
       description: 'Định dạng, làm đẹp và phân tích cú pháp JSON. Hỗ trợ JS Eval để đọc Object lỏng lẻo.',

@@ -6,6 +6,7 @@ A modern, fast, and secure collection of developer tools built with React, TypeS
 
 ## 🚀 Features
 
+- **HTML Viewer:** Soạn thảo và Live Preview HTML, CSS, JS ngay trên trình duyệt mà không cần Server.
 - **JSON Formatter:** Format, beautify, and parse JSON strings with an interactive Tree View. Includes a "JS Eval" mode.
 - **Diff Checker:** Compare two pieces of text or code side-by-side with Monaco Editor (VS Code core).
 - **Text Encoders / Decoders:** Base64, URL formats, Unicode, HTML Entities, Hex.

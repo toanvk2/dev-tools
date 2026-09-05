@@ -1,7 +1,7 @@
 import React, { useMemo, Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme, ConfigProvider, Button, Typography } from 'antd';
-import { CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { Html5Outlined, CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
 const Home = lazy(() => import('./pages/Home'));
 const JsonFormatter = lazy(() => import('./pages/JsonFormatter'));
 const TextEncoder = lazy(() => import('./pages/TextEncoder'));
@@ -13,6 +13,7 @@ const TimestampConverter = lazy(() => import('./pages/TimestampConverter'));
 const ColorConverter = lazy(() => import('./pages/ColorConverter'));
 const CronParser = lazy(() => import('./pages/CronParser'));
 const RandomGenerator = lazy(() => import('./pages/RandomGenerator'));
+const HtmlViewer = lazy(() => import('./pages/HtmlViewer'));
 import { FieldTimeOutlined, ThunderboltOutlined, DatabaseOutlined, SafetyOutlined, AppstoreAddOutlined, ToolOutlined } from '@ant-design/icons';
 
 import { DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
@@ -33,7 +34,7 @@ const AppLayout: React.FC = () => {
   // Find the parent key for the active route
   const getActiveGroup = () => {
     const path = location.pathname;
-    if (['/json-formatter', '/diff'].includes(path)) return 'data';
+    if (['/json-formatter', '/diff', '/html-viewer'].includes(path)) return 'data';
     if (['/encoder', '/jwt', '/hash'].includes(path)) return 'security';
     if (['/random', '/generator'].includes(path)) return 'generators';
     if (['/timestamp', '/cron'].includes(path)) return 'time';
@@ -94,6 +95,7 @@ const AppLayout: React.FC = () => {
               icon: <DatabaseOutlined />,
               label: 'Data & Code',
               children: [
+                { key: '/html-viewer', icon: <Html5Outlined />, label: <Link to="/html-viewer">HTML Viewer</Link> },
                 { key: '/json-formatter', icon: <CodeOutlined />, label: <Link to="/json-formatter">JSON Formatter</Link> },
                 { key: '/diff', icon: <DiffOutlined />, label: <Link to="/diff">Diff Checker</Link> }
               ]
@@ -152,6 +154,7 @@ const AppLayout: React.FC = () => {
             <Suspense fallback={<div style={{ padding: 50, textAlign: 'center', fontSize: 16 }}>Đang tải công cụ... (Loading)</div>}>
               <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/html-viewer" element={<HtmlViewer />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
               <Route path="/encoder" element={<TextEncoder />} />
               <Route path="/jwt" element={<JwtParser />} />
