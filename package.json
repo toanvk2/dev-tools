@@ -13,6 +13,7 @@
     "@ant-design/icons": "^6.3.2",
     "@monaco-editor/react": "^4.7.0",
     "antd": "^6.6.0",
+    "crypto-js": "^4.2.0",
     "js-base64": "^3.9.2",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.8",
@@ -23,6 +24,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",

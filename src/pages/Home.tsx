@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
@@ -31,8 +31,33 @@ const Home: React.FC = () => {
       icon: <BarcodeOutlined style={{ fontSize: 40, color: '#fa8c16' }} />,
       link: '/generator'
 
+    },
+    {
+      title: 'Diff Checker',
+      description: 'So sánh hai đoạn Text hoặc Code. Đánh dấu chi tiết từng ký tự thay đổi với Monaco Editor.',
+      icon: <DiffOutlined style={{ fontSize: 40, color: '#eb2f96' }} />,
+      link: '/diff'
+    },
+    {
+      title: 'Hash Generator',
+      description: 'Tạo mã băm MD5, SHA1, SHA256, SHA512 tức thì. Không gửi dữ liệu qua mạng.',
+      icon: <KeyOutlined style={{ fontSize: 40, color: '#13c2c2' }} />,
+      link: '/hash'
+    },
+    {
+      title: 'Epoch Timestamp',
+      description: 'Công cụ chuyển đổi 2 chiều giữa Unix Timestamp và Human Readable Date.',
+      icon: <ClockCircleOutlined style={{ fontSize: 40, color: '#2f54eb' }} />,
+      link: '/timestamp'
+    },
+    {
+      title: 'Color Converter',
+      description: 'Bảng chọn màu và chuyển đổi qua lại giữa các chuẩn HEX, RGB, HSB.',
+      icon: <BgColorsOutlined style={{ fontSize: 40, color: '#fadb14' }} />,
+      link: '/color'
     }
   ];
+
 
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '40px 0' }}>

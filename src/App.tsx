@@ -7,6 +7,13 @@ import JsonFormatter from './pages/JsonFormatter';
 import TextEncoder from './pages/TextEncoder';
 import JwtParser from './pages/JwtParser';
 import CodeGenerator from './pages/CodeGenerator';
+
+import DiffChecker from './pages/DiffChecker';
+import HashGenerator from './pages/HashGenerator';
+import TimestampConverter from './pages/TimestampConverter';
+import ColorConverter from './pages/ColorConverter';
+import { DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
+
 import { useAppStore } from './store/useAppStore';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -29,6 +36,11 @@ const AppLayout: React.FC = () => {
       case '/encoder': return 'Text Encoders / Decoders';
       case '/jwt': return 'JWT Parser';
       case '/generator': return 'QR & Barcode Generator';
+      case '/diff': return 'Diff Checker';
+      case '/hash': return 'Hash Generator';
+      case '/timestamp': return 'Epoch Timestamp Converter';
+      case '/color': return 'Color Picker / Converter';
+
       default: return 'DevTools';
     }
   };
@@ -79,7 +91,28 @@ const AppLayout: React.FC = () => {
               key: '/generator',
               icon: <BarcodeOutlined />,
               label: <Link to="/generator">QR & Barcode Generator</Link>,
+            },
+            {
+              key: '/diff',
+              icon: <DiffOutlined />,
+              label: <Link to="/diff">Diff Checker</Link>,
+            },
+            {
+              key: '/hash',
+              icon: <KeyOutlined />,
+              label: <Link to="/hash">Hash Generator</Link>,
+            },
+            {
+              key: '/timestamp',
+              icon: <ClockCircleOutlined />,
+              label: <Link to="/timestamp">Epoch Converter</Link>,
+            },
+            {
+              key: '/color',
+              icon: <BgColorsOutlined />,
+              label: <Link to="/color">Color Picker</Link>,
             }
+
           ]}
         />
       </Sider>
@@ -101,6 +134,11 @@ const AppLayout: React.FC = () => {
               <Route path="/encoder" element={<TextEncoder />} />
               <Route path="/jwt" element={<JwtParser />} />
               <Route path="/generator" element={<CodeGenerator />} />
+              <Route path="/diff" element={<DiffChecker />} />
+              <Route path="/hash" element={<HashGenerator />} />
+              <Route path="/timestamp" element={<TimestampConverter />} />
+              <Route path="/color" element={<ColorConverter />} />
+
             </Routes>
           </div>
         </Content>
