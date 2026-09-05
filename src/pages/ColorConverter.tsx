@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Input, Card } from 'antd';
+import { Row, Col, Typography, Input, Card, Slider, InputNumber } from 'antd';
 import { RgbaColorPicker } from 'react-colorful';
 import { colord, extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
@@ -92,6 +92,28 @@ const ColorConverter: React.FC = () => {
                   <Text strong style={{ marginBottom: 8, fontSize: 16 }}>HSL:</Text>
                   <Input size="large" value={hslInput} onChange={(e) => handleHslChange(e.target.value)} style={{ fontFamily: 'monospace', fontSize: 18 }} />
                 </div>
+
+                
+                <Row align="middle" style={{ marginTop: 8 }}>
+                  <Col span={6}><Text strong style={{ fontSize: 16 }}>Alpha:</Text></Col>
+                  <Col span={12}>
+                    <Slider 
+                      min={0} max={100} 
+                      value={Math.round(color.a * 100)} 
+                      onChange={(val: number) => setColor({ ...color, a: val / 100 })} 
+                    />
+                  </Col>
+                  <Col span={6} style={{ paddingLeft: 12 }}>
+                    <InputNumber 
+                      min={0} max={100} 
+                      value={Math.round(color.a * 100)} 
+                      onChange={(val: any) => val !== null && setColor({ ...color, a: val / 100 })}
+                      formatter={(val: number | undefined | string) => `${val}%`}
+                      parser={(val: string | undefined) => val ? parseInt(val.replace('%', ''), 10) : 0}
+                      style={{ width: '100%' }}
+                    />
+                  </Col>
+                </Row>
 
                 <div style={{ display: 'flex', gap: 16, marginTop: 16 }}>
                   <div style={{ flex: 1, padding: 16, background: isDark ? '#1f1f1f' : '#f5f5f5', borderRadius: 8 }}>
