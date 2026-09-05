@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
@@ -8,10 +8,40 @@ const { Title, Paragraph, Text } = Typography;
 const Home: React.FC = () => {
   const features = [
     {
+      title: 'JSON ↔ YAML',
+      description: 'Chuyển đổi qua lại giữa định dạng JSON và YAML một cách nhanh chóng.',
+      icon: <RetweetOutlined style={{ fontSize: 40, color: '#13c2c2' }} />,
+      link: '/yaml'
+    },
+    {
+      title: 'Regex Tester',
+      description: 'Kiểm tra biểu thức chính quy (Regular Expression) trực quan với Highlight.',
+      icon: <CodeOutlined style={{ fontSize: 40, color: '#2f54eb' }} />,
+      link: '/regex'
+    },
+    {
+      title: 'Markdown Preview',
+      description: 'Soạn thảo Markdown và xem trước giao diện hiển thị ngay lập tức (Live Render).',
+      icon: <FileTextOutlined style={{ fontSize: 40, color: '#fa541c' }} />,
+      link: '/markdown'
+    },
+    {
       title: 'JSON Formatter',
       description: 'Định dạng, làm đẹp và phân tích cú pháp JSON. Hỗ trợ JS Eval để đọc Object lỏng lẻo.',
       icon: <CodeOutlined style={{ fontSize: 40, color: '#1890ff' }} />,
       link: '/json-formatter'
+    },
+    {
+      title: 'Diff Checker',
+      description: 'So sánh hai đoạn Text hoặc Code. Đánh dấu chi tiết từng ký tự thay đổi với Monaco Editor.',
+      icon: <DiffOutlined style={{ fontSize: 40, color: '#eb2f96' }} />,
+      link: '/diff'
+    },
+    {
+      title: 'URL Parser',
+      description: 'Phân tích Link URL thành các thành phần (Domain, Path, Query Parameters).',
+      icon: <LinkOutlined style={{ fontSize: 40, color: '#eb2f96' }} />,
+      link: '/url-parser'
     },
     {
       title: 'Text Encoders / Decoders',
@@ -26,11 +56,46 @@ const Home: React.FC = () => {
       link: '/jwt'
     },
     {
-      title: 'QR & Barcode Generator',
-      description: 'Tạo mã QR và Mã vạch (CODE128, EAN, UPC) với nhiều tùy chọn. Tải xuống định dạng ảnh chất lượng cao.',
+      title: 'Hash Generator',
+      description: 'Tạo mã băm MD5, SHA1, SHA256, SHA512 tức thì. Không gửi dữ liệu qua mạng.',
+      icon: <KeyOutlined style={{ fontSize: 40, color: '#13c2c2' }} />,
+      link: '/hash'
+    },
+    {
+      title: 'Random Generator',
+      description: 'Tạo mã UUID hàng loạt hoặc sinh mật khẩu, số ngẫu nhiên với tuỳ chỉnh.',
+      icon: <ThunderboltOutlined style={{ fontSize: 40, color: '#a0d911' }} />,
+      link: '/random'
+    },
+    {
+      title: 'QR & Barcode',
+      description: 'Tạo mã QR và Mã vạch (CODE128, EAN, UPC) với nhiều tùy chọn. Tải xuống ảnh.',
       icon: <BarcodeOutlined style={{ fontSize: 40, color: '#fa8c16' }} />,
       link: '/generator'
-
+    },
+    {
+      title: 'Epoch Timestamp',
+      description: 'Công cụ chuyển đổi 2 chiều giữa Unix Timestamp và Human Readable Date.',
+      icon: <ClockCircleOutlined style={{ fontSize: 40, color: '#2f54eb' }} />,
+      link: '/timestamp'
+    },
+    {
+      title: 'Cron Job Parser',
+      description: 'Dịch biểu thức Cron sang tiếng Việt và liệt kê 5 thời điểm chạy tiếp theo.',
+      icon: <FieldTimeOutlined style={{ fontSize: 40, color: '#fa541c' }} />,
+      link: '/cron'
+    },
+    {
+      title: 'HTML Viewer',
+      description: 'Soạn thảo và Live Preview HTML, CSS, JS ngay trên trình duyệt mà không cần Server.',
+      icon: <Html5Outlined style={{ fontSize: 40, color: '#e34f26' }} />,
+      link: '/html-viewer'
+    },
+    {
+      title: 'Color Converter',
+      description: 'Bảng chọn màu trực quan và chuyển đổi qua lại giữa các chuẩn HEX, RGB, HSL.',
+      icon: <BgColorsOutlined style={{ fontSize: 40, color: '#fadb14' }} />,
+      link: '/color'
     }
   ];
 

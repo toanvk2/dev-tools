@@ -4,6 +4,7 @@ import { DownloadOutlined, QrcodeOutlined, BarcodeOutlined } from '@ant-design/i
 import { QRCodeCanvas } from 'qrcode.react';
 import Barcode from 'react-barcode';
 import { useCacheState } from '../hooks/useCacheState';
+import { APP_CONFIG } from '../config';
 import { useAppStore } from '../store/useAppStore';
 
 const { Text } = Typography;
@@ -11,7 +12,7 @@ const { TextArea } = Input;
 
 const CodeGenerator: React.FC = () => {
   const [codeType, setCodeType] = useCacheState<'qrcode' | 'barcode'>('code-type', 'qrcode');
-  const [input, setInput] = useCacheState<string>('code-input', 'https://dev-tools.io');
+  const [input, setInput] = useCacheState<string>('code-input', APP_CONFIG.DOMAIN);
   
   // QRCode options
   const [qrLevel, setQrLevel] = useCacheState<'L' | 'M' | 'Q' | 'H'>('code-qr-level', 'M');
@@ -73,7 +74,7 @@ const CodeGenerator: React.FC = () => {
             <Select 
               value={qrLevel} 
               onChange={setQrLevel} 
-              style={{ width: 120 }}
+              style={{ minWidth: 160 }}
               options={[
                 { label: 'L (Thấp - 7%)', value: 'L' },
                 { label: 'M (Vừa - 15%)', value: 'M' },
