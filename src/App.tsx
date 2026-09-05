@@ -12,6 +12,11 @@ import DiffChecker from './pages/DiffChecker';
 import HashGenerator from './pages/HashGenerator';
 import TimestampConverter from './pages/TimestampConverter';
 import ColorConverter from './pages/ColorConverter';
+
+import CronParser from './pages/CronParser';
+import RandomGenerator from './pages/RandomGenerator';
+import { FieldTimeOutlined, ThunderboltOutlined } from '@ant-design/icons';
+
 import { DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
 
 import { useAppStore } from './store/useAppStore';
@@ -40,6 +45,9 @@ const AppLayout: React.FC = () => {
       case '/hash': return 'Hash Generator';
       case '/timestamp': return 'Epoch Timestamp Converter';
       case '/color': return 'Color Picker / Converter';
+      case '/cron': return 'Cron Job Parser';
+      case '/random': return 'Random Generator (UUID/Password)';
+
 
       default: return 'DevTools';
     }
@@ -111,7 +119,18 @@ const AppLayout: React.FC = () => {
               key: '/color',
               icon: <BgColorsOutlined />,
               label: <Link to="/color">Color Picker</Link>,
+            },
+            {
+              key: '/cron',
+              icon: <FieldTimeOutlined />,
+              label: <Link to="/cron">Cron Parser</Link>,
+            },
+            {
+              key: '/random',
+              icon: <ThunderboltOutlined />,
+              label: <Link to="/random">Random Generator</Link>,
             }
+
 
           ]}
         />
@@ -138,6 +157,9 @@ const AppLayout: React.FC = () => {
               <Route path="/hash" element={<HashGenerator />} />
               <Route path="/timestamp" element={<TimestampConverter />} />
               <Route path="/color" element={<ColorConverter />} />
+              <Route path="/cron" element={<CronParser />} />
+              <Route path="/random" element={<RandomGenerator />} />
+
 
             </Routes>
           </div>

@@ -16,7 +16,13 @@ importers:
         version: 4.7.0(monaco-editor@0.56.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       antd:
         specifier: ^6.6.0
-        version: 6.6.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 6.6.0(luxon@3.7.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      cron-parser:
+        specifier: ^5.10.0
+        version: 5.10.0
+      cronstrue:
+        specifier: ^3.24.0
+        version: 3.24.0
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -684,6 +690,14 @@ packages:
     resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
     engines: {node: '>=18'}
 
+  cron-parser@5.10.0:
+    resolution: {integrity: sha512-izNAxJyRWUP8ljBoDSub5WyrVOUlT4SLGShswE7eoRBpp6QUsSycYxLBMJlbshgPBMcPT/nrfgjNY2918ayv2A==}
+    engines: {node: '>=18'}
+
+  cronstrue@3.24.0:
+    resolution: {integrity: sha512-t/Ji3Ur2c/pzhIAWNwC0ftl3JAE4dLfCjAdZoTZXmPDZwcispnS1PaMcMS4OmIIXyIVouAz+yw+mfQiE3hz5OQ==}
+    hasBin: true
+
   cross-fetch@3.2.0:
     resolution: {integrity: sha512-Q+xVJLoGOeIMXZmbUK4HYk+69cQH6LudR0Vu/pRm2YlU/hDV9CiS0gKUMaWY5f2NeUH9C1nV3bsTlCo0FsTV1Q==}
 
@@ -830,6 +844,10 @@ packages:
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
+
+  luxon@3.7.2:
+    resolution: {integrity: sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==}
+    engines: {node: '>=12'}
 
   marked@14.0.0:
     resolution: {integrity: sha512-uIj4+faQ+MgHgwUW1l2PsPglZLOLOT1uErt06dAPtx2kjteLAkbsd/0FiYg/MGS+i7ZKLb7w2WClxHkzOOuryQ==}
@@ -1397,7 +1415,7 @@ snapshots:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  '@rc-component/picker@1.12.0(dayjs@1.11.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@rc-component/picker@1.12.0(dayjs@1.11.21)(luxon@3.7.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@rc-component/overflow': 1.0.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@rc-component/resize-observer': 1.1.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1408,6 +1426,7 @@ snapshots:
       react-dom: 19.2.8(react@19.2.8)
     optionalDependencies:
       dayjs: 1.11.21
+      luxon: 3.7.2
 
   '@rc-component/portal@2.2.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
@@ -1637,7 +1656,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.1
       vite: 8.2.1(@types/node@24.13.3)
 
-  antd@6.6.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  antd@6.6.0(luxon@3.7.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       '@ant-design/colors': 8.0.1
       '@ant-design/cssinjs': 2.1.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1664,7 +1683,7 @@ snapshots:
       '@rc-component/mutate-observer': 2.0.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@rc-component/notification': 2.0.7(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@rc-component/pagination': 1.4.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@rc-component/picker': 1.12.0(dayjs@1.11.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@rc-component/picker': 1.12.0(dayjs@1.11.21)(luxon@3.7.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@rc-component/progress': 1.0.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@rc-component/qrcode': 2.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@rc-component/rate': 1.0.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1703,6 +1722,12 @@ snapshots:
   compute-scroll-into-view@3.1.1: {}
 
   cookie@1.1.1: {}
+
+  cron-parser@5.10.0:
+    dependencies:
+      luxon: 3.7.2
+
+  cronstrue@3.24.0: {}
 
   cross-fetch@3.2.0:
     dependencies:
@@ -1825,6 +1850,8 @@ snapshots:
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
+
+  luxon@3.7.2: {}
 
   marked@14.0.0: {}
 

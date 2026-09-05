@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
+import { CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
@@ -55,8 +55,21 @@ const Home: React.FC = () => {
       description: 'Bảng chọn màu và chuyển đổi qua lại giữa các chuẩn HEX, RGB, HSB.',
       icon: <BgColorsOutlined style={{ fontSize: 40, color: '#fadb14' }} />,
       link: '/color'
+    },
+    {
+      title: 'Cron Job Parser',
+      description: 'Dịch biểu thức Cron sang tiếng Việt và liệt kê 5 thời điểm chạy tiếp theo.',
+      icon: <FieldTimeOutlined style={{ fontSize: 40, color: '#fa541c' }} />,
+      link: '/cron'
+    },
+    {
+      title: 'Random Generator',
+      description: 'Tạo mã UUID/GUID hàng loạt hoặc sinh mật khẩu ngẫu nhiên với độ dài tuỳ chỉnh.',
+      icon: <ThunderboltOutlined style={{ fontSize: 40, color: '#a0d911' }} />,
+      link: '/random'
     }
   ];
+
 
 
   return (
