@@ -13,7 +13,7 @@ const TimestampConverter = lazy(() => import('./pages/TimestampConverter'));
 const ColorConverter = lazy(() => import('./pages/ColorConverter'));
 const CronParser = lazy(() => import('./pages/CronParser'));
 const RandomGenerator = lazy(() => import('./pages/RandomGenerator'));
-import { FieldTimeOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { FieldTimeOutlined, ThunderboltOutlined, DatabaseOutlined, SafetyOutlined, AppstoreAddOutlined, ToolOutlined } from '@ant-design/icons';
 
 import { DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
 
@@ -29,6 +29,17 @@ const AppLayout: React.FC = () => {
   const {
   } = theme.useToken();
   const location = useLocation();
+  
+  // Find the parent key for the active route
+  const getActiveGroup = () => {
+    const path = location.pathname;
+    if (['/json-formatter', '/diff'].includes(path)) return 'data';
+    if (['/encoder', '/jwt', '/hash'].includes(path)) return 'security';
+    if (['/random', '/generator'].includes(path)) return 'generators';
+    if (['/timestamp', '/cron'].includes(path)) return 'time';
+    if (['/color'].includes(path)) return 'design';
+    return '';
+  };
 
   const isDark = appTheme === 'dark';
 
@@ -76,60 +87,53 @@ const AppLayout: React.FC = () => {
         <Menu
           theme={appTheme}
           mode="inline"
-          selectedKeys={[location.pathname]}
+          defaultOpenKeys={[getActiveGroup()]} selectedKeys={[location.pathname]}
           items={[
             {
-              key: '/json-formatter',
-              icon: <CodeOutlined />,
-              label: <Link to="/json-formatter">JSON Formatter</Link>,
+              key: 'data',
+              icon: <DatabaseOutlined />,
+              label: 'Data & Code',
+              children: [
+                { key: '/json-formatter', icon: <CodeOutlined />, label: <Link to="/json-formatter">JSON Formatter</Link> },
+                { key: '/diff', icon: <DiffOutlined />, label: <Link to="/diff">Diff Checker</Link> }
+              ]
             },
             {
-              key: '/encoder',
-              icon: <SwapOutlined />,
-              label: <Link to="/encoder">Text Encoders/Decoders</Link>,
+              key: 'security',
+              icon: <SafetyOutlined />,
+              label: 'Crypto & Security',
+              children: [
+                { key: '/encoder', icon: <SwapOutlined />, label: <Link to="/encoder">Text Encoders</Link> },
+                { key: '/jwt', icon: <SecurityScanOutlined />, label: <Link to="/jwt">JWT Parser</Link> },
+                { key: '/hash', icon: <KeyOutlined />, label: <Link to="/hash">Hash Generator</Link> }
+              ]
             },
             {
-              key: '/jwt',
-              icon: <SecurityScanOutlined />,
-              label: <Link to="/jwt">JWT Parser</Link>,
+              key: 'generators',
+              icon: <AppstoreAddOutlined />,
+              label: 'Generators',
+              children: [
+                { key: '/random', icon: <ThunderboltOutlined />, label: <Link to="/random">Random Data</Link> },
+                { key: '/generator', icon: <BarcodeOutlined />, label: <Link to="/generator">QR & Barcode</Link> }
+              ]
             },
             {
-              key: '/generator',
-              icon: <BarcodeOutlined />,
-              label: <Link to="/generator">QR & Barcode Generator</Link>,
-            },
-            {
-              key: '/diff',
-              icon: <DiffOutlined />,
-              label: <Link to="/diff">Diff Checker</Link>,
-            },
-            {
-              key: '/hash',
-              icon: <KeyOutlined />,
-              label: <Link to="/hash">Hash Generator</Link>,
-            },
-            {
-              key: '/timestamp',
+              key: 'time',
               icon: <ClockCircleOutlined />,
-              label: <Link to="/timestamp">Epoch Converter</Link>,
+              label: 'Time & Cron',
+              children: [
+                { key: '/timestamp', icon: <FieldTimeOutlined />, label: <Link to="/timestamp">Epoch Converter</Link> },
+                { key: '/cron', icon: <ToolOutlined />, label: <Link to="/cron">Cron Parser</Link> }
+              ]
             },
             {
-              key: '/color',
+              key: 'design',
               icon: <BgColorsOutlined />,
-              label: <Link to="/color">Color Picker</Link>,
-            },
-            {
-              key: '/cron',
-              icon: <FieldTimeOutlined />,
-              label: <Link to="/cron">Cron Parser</Link>,
-            },
-            {
-              key: '/random',
-              icon: <ThunderboltOutlined />,
-              label: <Link to="/random">Random Generator</Link>,
+              label: 'Design & UI',
+              children: [
+                { key: '/color', label: <Link to="/color">Color Picker</Link> }
+              ]
             }
-
-
           ]}
         />
       </Sider>
