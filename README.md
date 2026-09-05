@@ -19,10 +19,10 @@ A modern, fast, and secure collection of developer tools built with React, TypeS
 - **Dark/Light Mode:** Seamless theme toggling to match your system preferences.
 
 ## 💻 Tech Stack
-- React 18
-- TypeScript
-- Vite
-- Ant Design v5
+- React 19
+- TypeScript 6
+- Vite 8
+- Ant Design v6
 - Monaco Editor
 - Zustand (State Management)
 
