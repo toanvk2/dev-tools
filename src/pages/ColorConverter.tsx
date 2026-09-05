@@ -1,58 +1,113 @@
-import React, { useState } from 'react';
-import { Row, Col, Typography, Input, Card, ColorPicker } from 'antd';
-import type { Color } from 'antd/es/color-picker';
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Typography, Input, Card } from 'antd';
+import { RgbaColorPicker } from 'react-colorful';
+import { colord, extend } from 'colord';
+import namesPlugin from 'colord/plugins/names';
+import cmykPlugin from 'colord/plugins/cmyk';
+import hwbPlugin from 'colord/plugins/hwb';
+import { useCacheState } from '../hooks/useCacheState';
+import { useAppStore } from '../store/useAppStore';
+
+extend([namesPlugin, cmykPlugin, hwbPlugin]);
 
 const { Text } = Typography;
 
 const ColorConverter: React.FC = () => {
-  const [colorHex, setColorHex] = useState<string>('#1890ff');
-  const [colorRgb, setColorRgb] = useState<string>('rgb(24, 144, 255)');
-  const [colorHsb, setColorHsb] = useState<string>('hsl(209, 100%, 55%)');
+  const [color, setColor] = useCacheState<{ r: number, g: number, b: number, a: number }>('color-picker', { r: 36, g: 181, b: 72, a: 1 });
+  
+  const [hexInput, setHexInput] = useState<string>('');
+  const [rgbInput, setRgbInput] = useState<string>('');
+  const [hslInput, setHslInput] = useState<string>('');
 
-  const handleColorChange = (value: Color, hex: string) => {
-    setColorHex(hex);
-    setColorRgb(value.toRgbString());
-    setColorHsb(value.toHsbString());
+  const appTheme = useAppStore(state => state.theme);
+  const isDark = appTheme === 'dark';
+
+  // Sync inputs when picker changes
+  useEffect(() => {
+    const instance = colord(color);
+    setHexInput(instance.toHex());
+    setRgbInput(instance.toRgbString());
+    setHslInput(instance.toHslString());
+  }, [color]);
+
+  // Handle Input Changes
+  const handleHexChange = (val: string) => {
+    setHexInput(val);
+    const instance = colord(val);
+    if (instance.isValid()) setColor(instance.toRgb());
   };
 
-  return (
-    <div style={{ maxWidth: 600, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <Card title="Color Picker & Converter" styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32, padding: '24px 0' }}>
-          
-          {/* Big Color Picker */}
-          <ColorPicker 
-            value={colorHex} 
-            onChange={handleColorChange} 
-            showText 
-            format="hex"
-            style={{ transform: 'scale(1.5)', transformOrigin: 'center' }}
-          />
+  const handleRgbChange = (val: string) => {
+    setRgbInput(val);
+    const instance = colord(val);
+    if (instance.isValid()) setColor(instance.toRgb());
+  };
 
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 16, marginTop: 16 }}>
-            <Row align="middle">
-              <Col span={6}><Text strong>HEX:</Text></Col>
-              <Col span={18}>
-                <Input value={colorHex} readOnly style={{ fontFamily: 'monospace', fontSize: 16 }} />
+  const handleHslChange = (val: string) => {
+    setHslInput(val);
+    const instance = colord(val);
+    if (instance.isValid()) setColor(instance.toRgb());
+  };
+
+  const cmykStr = colord(color).toCmykString();
+  const hwbStr = colord(color).toHwbString();
+
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Row gutter={24} style={{ flex: 1, justifyContent: 'center' }}>
+        <Col span={20} style={{ display: 'flex', flexDirection: 'column' }}>
+          <Card 
+            title="Color Picker & Converter" 
+            style={{ height: '100%', display: 'flex', flexDirection: 'column' }} 
+            styles={{ 
+              header: { borderBottom: '1px solid #f0f0f0' },
+              body: { flex: 1, display: 'flex', flexDirection: 'column', padding: 32 }
+            }}
+          >
+            <Row gutter={48} style={{ flex: 1 }}>
+              <Col span={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <style>{`
+                  .custom-picker { width: 100% !important; height: 350px !important; border-radius: 12px; }
+                  .custom-picker .react-colorful__saturation { border-radius: 12px 12px 0 0; border-bottom: none; }
+                  .custom-picker .react-colorful__hue, .custom-picker .react-colorful__alpha { height: 24px; border-radius: 12px; margin-top: 16px; }
+                  .custom-picker .react-colorful__pointer { width: 32px; height: 32px; }
+                `}</style>
+                <div style={{ width: '100%', maxWidth: 400, padding: 16, background: isDark ? '#141414' : '#fff', borderRadius: 16, boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
+                  <RgbaColorPicker color={color} onChange={setColor} className="custom-picker" />
+                </div>
+              </Col>
+              
+              <Col span={12} style={{ display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Text strong style={{ marginBottom: 8, fontSize: 16 }}>HEX:</Text>
+                  <Input size="large" value={hexInput} onChange={(e) => handleHexChange(e.target.value)} style={{ fontFamily: 'monospace', fontSize: 18 }} />
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Text strong style={{ marginBottom: 8, fontSize: 16 }}>RGB:</Text>
+                  <Input size="large" value={rgbInput} onChange={(e) => handleRgbChange(e.target.value)} style={{ fontFamily: 'monospace', fontSize: 18 }} />
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Text strong style={{ marginBottom: 8, fontSize: 16 }}>HSL:</Text>
+                  <Input size="large" value={hslInput} onChange={(e) => handleHslChange(e.target.value)} style={{ fontFamily: 'monospace', fontSize: 18 }} />
+                </div>
+
+                <div style={{ display: 'flex', gap: 16, marginTop: 16 }}>
+                  <div style={{ flex: 1, padding: 16, background: isDark ? '#1f1f1f' : '#f5f5f5', borderRadius: 8 }}>
+                    <div style={{ fontSize: 12, color: '#888', marginBottom: 4 }}>CMYK</div>
+                    <div style={{ fontFamily: 'monospace' }}>{cmykStr}</div>
+                  </div>
+                  <div style={{ flex: 1, padding: 16, background: isDark ? '#1f1f1f' : '#f5f5f5', borderRadius: 8 }}>
+                    <div style={{ fontSize: 12, color: '#888', marginBottom: 4 }}>HWB</div>
+                    <div style={{ fontFamily: 'monospace' }}>{hwbStr}</div>
+                  </div>
+                </div>
               </Col>
             </Row>
-            
-            <Row align="middle">
-              <Col span={6}><Text strong>RGB:</Text></Col>
-              <Col span={18}>
-                <Input value={colorRgb} readOnly style={{ fontFamily: 'monospace', fontSize: 16 }} />
-              </Col>
-            </Row>
-            
-            <Row align="middle">
-              <Col span={6}><Text strong>HSB:</Text></Col>
-              <Col span={18}>
-                <Input value={colorHsb} readOnly style={{ fontFamily: 'monospace', fontSize: 16 }} />
-              </Col>
-            </Row>
-          </div>
-        </div>
-      </Card>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };

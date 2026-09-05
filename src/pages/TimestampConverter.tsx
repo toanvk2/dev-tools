@@ -55,7 +55,7 @@ const TimestampConverter: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 24 }}>
       <Card style={{ textAlign: 'center', background: appTheme === 'dark' ? '#141414' : '#e6f7ff', borderColor: '#91d5ff' }}>
         <Space direction="vertical">
           <Text style={{ fontSize: 16 }}>The current Unix epoch time is</Text>
@@ -65,7 +65,9 @@ const TimestampConverter: React.FC = () => {
         </Space>
       </Card>
 
-      <Card title="Timestamp to Human Date" styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}>
+      <Row gutter={24} style={{ flex: 1 }}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
+          <Card style={{ height: "100%" }} title="Timestamp to Human Date" styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}>
         <Row gutter={16} align="middle">
           <Col span={24}>
             <Text>Supports seconds and milliseconds</Text>
@@ -91,8 +93,9 @@ const TimestampConverter: React.FC = () => {
           </div>
         )}
       </Card>
-
-      <Card title="Human Date to Timestamp" styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}>
+        </Col>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
+          <Card style={{ height: "100%" }} title="Human Date to Timestamp" styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}>
         <Space wrap style={{ marginBottom: 16 }}>
           <div>
             <div style={{ fontSize: 12, marginBottom: 4 }}>Yr</div>
@@ -136,6 +139,8 @@ const TimestampConverter: React.FC = () => {
           </div>
         )}
       </Card>
+        </Col>
+      </Row>
     </div>
   );
 };
