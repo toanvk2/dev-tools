@@ -1,20 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme, ConfigProvider, Button, Typography } from 'antd';
 import { CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
-import Home from './pages/Home';
-import JsonFormatter from './pages/JsonFormatter';
-import TextEncoder from './pages/TextEncoder';
-import JwtParser from './pages/JwtParser';
-import CodeGenerator from './pages/CodeGenerator';
-
-import DiffChecker from './pages/DiffChecker';
-import HashGenerator from './pages/HashGenerator';
-import TimestampConverter from './pages/TimestampConverter';
-import ColorConverter from './pages/ColorConverter';
-
-import CronParser from './pages/CronParser';
-import RandomGenerator from './pages/RandomGenerator';
+const Home = lazy(() => import('./pages/Home'));
+const JsonFormatter = lazy(() => import('./pages/JsonFormatter'));
+const TextEncoder = lazy(() => import('./pages/TextEncoder'));
+const JwtParser = lazy(() => import('./pages/JwtParser'));
+const CodeGenerator = lazy(() => import('./pages/CodeGenerator'));
+const DiffChecker = lazy(() => import('./pages/DiffChecker'));
+const HashGenerator = lazy(() => import('./pages/HashGenerator'));
+const TimestampConverter = lazy(() => import('./pages/TimestampConverter'));
+const ColorConverter = lazy(() => import('./pages/ColorConverter'));
+const CronParser = lazy(() => import('./pages/CronParser'));
+const RandomGenerator = lazy(() => import('./pages/RandomGenerator'));
 import { FieldTimeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 import { DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined } from '@ant-design/icons';
@@ -147,7 +145,8 @@ const AppLayout: React.FC = () => {
         </Header>
         <Content style={{ padding: 24, margin: 0, height: '100%', overflow: 'auto' }}>
           <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <Routes>
+            <Suspense fallback={<div style={{ padding: 50, textAlign: 'center', fontSize: 16 }}>Đang tải công cụ... (Loading)</div>}>
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
               <Route path="/encoder" element={<TextEncoder />} />
@@ -162,6 +161,7 @@ const AppLayout: React.FC = () => {
 
 
             </Routes>
+            </Suspense>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center', transition: 'all 0.3s', background: 'transparent' }}>
