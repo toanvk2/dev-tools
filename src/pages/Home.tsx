@@ -8,12 +8,6 @@ const { Title, Paragraph, Text } = Typography;
 const Home: React.FC = () => {
   const features = [
     {
-      title: 'HTML Viewer',
-      description: 'Soạn thảo và Live Preview HTML, CSS, JS ngay trên trình duyệt mà không cần Server.',
-      icon: <Html5Outlined style={{ fontSize: 40, color: '#e34f26' }} />,
-      link: '/html-viewer'
-    },
-    {
       title: 'JSON Formatter',
       description: 'Định dạng, làm đẹp và phân tích cú pháp JSON. Hỗ trợ JS Eval để đọc Object lỏng lẻo.',
       icon: <CodeOutlined style={{ fontSize: 40, color: '#1890ff' }} />,
@@ -66,6 +60,12 @@ const Home: React.FC = () => {
       description: 'Dịch biểu thức Cron sang tiếng Việt và liệt kê 5 thời điểm chạy tiếp theo.',
       icon: <FieldTimeOutlined style={{ fontSize: 40, color: '#fa541c' }} />,
       link: '/cron'
+    },
+    {
+      title: 'HTML Viewer',
+      description: 'Soạn thảo và Live Preview HTML, CSS, JS ngay trên trình duyệt mà không cần Server.',
+      icon: <Html5Outlined style={{ fontSize: 40, color: '#e34f26' }} />,
+      link: '/html-viewer'
     },
     {
       title: 'Color Converter',

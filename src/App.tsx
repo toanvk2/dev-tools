@@ -34,11 +34,11 @@ const AppLayout: React.FC = () => {
   // Find the parent key for the active route
   const getActiveGroup = () => {
     const path = location.pathname;
-    if (['/json-formatter', '/diff', '/html-viewer'].includes(path)) return 'data';
+    if (['/json-formatter', '/diff'].includes(path)) return 'data';
     if (['/encoder', '/jwt', '/hash'].includes(path)) return 'security';
     if (['/random', '/generator'].includes(path)) return 'generators';
     if (['/timestamp', '/cron'].includes(path)) return 'time';
-    if (['/color'].includes(path)) return 'design';
+    if (['/color', '/html-viewer'].includes(path)) return 'design';
     return '';
   };
 
@@ -95,7 +95,7 @@ const AppLayout: React.FC = () => {
               icon: <DatabaseOutlined />,
               label: 'Data & Code',
               children: [
-                { key: '/html-viewer', icon: <Html5Outlined />, label: <Link to="/html-viewer">HTML Viewer</Link> },
+                
                 { key: '/json-formatter', icon: <CodeOutlined />, label: <Link to="/json-formatter">JSON Formatter</Link> },
                 { key: '/diff', icon: <DiffOutlined />, label: <Link to="/diff">Diff Checker</Link> }
               ]
@@ -133,6 +133,7 @@ const AppLayout: React.FC = () => {
               icon: <BgColorsOutlined />,
               label: 'Design & UI',
               children: [
+                { key: '/html-viewer', icon: <Html5Outlined />, label: <Link to="/html-viewer">HTML Viewer</Link> },
                 { key: '/color', label: <Link to="/color">Color Picker</Link> }
               ]
             }
