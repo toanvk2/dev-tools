@@ -3,6 +3,7 @@ import { Row, Col, Input, Typography, List, Tag, Collapse, Table } from 'antd';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
+import { APP_CONFIG } from '../config';
 
 const { Text, Title } = Typography;
 
@@ -35,7 +36,7 @@ const cheatSheetColumns = [
 const RegexTester: React.FC = () => {
   const [pattern, setPattern] = useCacheState<string>('regex-pattern', '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}');
   const [flags, setFlags] = useCacheState<string>('regex-flags', 'gm');
-  const [testString, setTestString] = useCacheState<string>('regex-test-string', 'Liên hệ với tôi qua email test@example.com hoặc admin@dev-tools.io nhé!\n\nEmail sai: wrong@email');
+  const [testString, setTestString] = useCacheState<string>('regex-test-string', `Liên hệ với tôi qua email test@example.com hoặc ${APP_CONFIG.CONTACT_EMAIL} nhé!\n\nEmail sai: wrong@email`);
 
   const appTheme = useAppStore(state => state.theme);
   const isDark = appTheme === 'dark';

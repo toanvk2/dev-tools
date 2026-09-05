@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Card, Input, Typography, Table, Row, Col, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import { useCacheState } from '../hooks/useCacheState';
+import { APP_CONFIG } from '../config';
 
 const { Text } = Typography;
 const { TextArea } = Input;
 
 const UrlParser: React.FC = () => {
-  const [urlInput, setUrlInput] = useCacheState<string>('url-parser-input', 'https://dev-tools.io/search?q=url+parser&lang=vi#results');
+  const [urlInput, setUrlInput] = useCacheState<string>('url-parser-input', `${APP_CONFIG.DOMAIN}#/url-parser?q=test&lang=vi#results`);
   const [parsed, setParsed] = useState<URL | null>(null);
 
   useEffect(() => {

@@ -30,11 +30,11 @@ const { Title } = Typography;
 const AppLayout: React.FC = () => {
   const appTheme = useAppStore(state => state.theme);
   const toggleTheme = useAppStore(state => state.toggleTheme);
-  
+
   const {
   } = theme.useToken();
   const location = useLocation();
-  
+
   // Find the parent key for the active route
   const getActiveGroup = () => {
     const path = location.pathname;
@@ -61,15 +61,11 @@ const AppLayout: React.FC = () => {
       case '/color': return 'Color Picker / Converter';
       case '/cron': return 'Cron Job Parser';
       case '/random': return 'Random Generator (UUID/Password)';
-
       case '/html-viewer': return 'HTML Viewer';
       case '/yaml': return 'JSON ↔ YAML Converter';
       case '/regex': return 'Regex Tester';
       case '/url-parser': return 'URL Parser';
       case '/markdown': return 'Markdown Preview';
-
-
-
       default: return 'DevTools';
     }
   };
@@ -78,16 +74,16 @@ const AppLayout: React.FC = () => {
     <Layout style={{ minHeight: '100vh' }}>
       <Sider breakpoint="lg" collapsedWidth="0" theme={appTheme}>
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <div 
-            style={{ 
-              height: 32, 
-              margin: 16, 
-              background: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.05)', 
-              borderRadius: 6, 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              color: isDark ? '#fff' : '#000', 
+            <div
+                style={{
+                    height: 32,
+                    margin: 16,
+                    background: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.05)',
+                    borderRadius: 6,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: isDark ? '#fff' : '#000',
               fontWeight: 'bold',
               transition: 'all 0.3s',
               cursor: 'pointer'
@@ -106,12 +102,16 @@ const AppLayout: React.FC = () => {
               icon: <DatabaseOutlined />,
               label: 'Data & Code',
               children: [
-                
-                { key: '/yaml', icon: <RetweetOutlined />, label: <Link to="/yaml">JSON ↔ YAML</Link> },
-                { key: '/regex', icon: <CodeOutlined />, label: <Link to="/regex">Regex Tester</Link> },
-                { key: '/markdown', icon: <FileTextOutlined />, label: <Link to="/markdown">Markdown Preview</Link> },
-                { key: '/json-formatter', icon: <CodeOutlined />, label: <Link to="/json-formatter">JSON Formatter</Link> },
-                { key: '/diff', icon: <DiffOutlined />, label: <Link to="/diff">Diff Checker</Link> }
+                  {
+                      key: '/json-formatter',
+                      icon: <CodeOutlined/>,
+                      label: <Link to="/json-formatter">JSON Formatter</Link>
+                  },
+                  {key: '/yaml', icon: <RetweetOutlined/>, label: <Link to="/yaml">JSON ↔ YAML</Link>},
+                  {key: '/regex', icon: <CodeOutlined/>, label: <Link to="/regex">Regex Tester</Link>},
+                  {key: '/diff', icon: <DiffOutlined/>, label: <Link to="/diff">Diff Checker</Link>},
+                  {key: '/markdown', icon: <FileTextOutlined/>, label: <Link to="/markdown">Markdown Preview</Link>}
+
               ]
             },
             {
@@ -119,10 +119,10 @@ const AppLayout: React.FC = () => {
               icon: <SafetyOutlined />,
               label: 'Crypto & Security',
               children: [
-                { key: '/url-parser', icon: <LinkOutlined />, label: <Link to="/url-parser">URL Parser</Link> },
-                { key: '/encoder', icon: <SwapOutlined />, label: <Link to="/encoder">Text Encoders</Link> },
-                { key: '/jwt', icon: <SecurityScanOutlined />, label: <Link to="/jwt">JWT Parser</Link> },
-                { key: '/hash', icon: <KeyOutlined />, label: <Link to="/hash">Hash Generator</Link> }
+                  {key: '/url-parser', icon: <LinkOutlined/>, label: <Link to="/url-parser">URL Parser</Link>},
+                  {key: '/encoder', icon: <SwapOutlined/>, label: <Link to="/encoder">Text Encoders</Link>},
+                  {key: '/hash', icon: <KeyOutlined/>, label: <Link to="/hash">Hash Generator</Link>},
+                  {key: '/jwt', icon: <SecurityScanOutlined/>, label: <Link to="/jwt">JWT Parser</Link>}
               ]
             },
             {
@@ -130,8 +130,8 @@ const AppLayout: React.FC = () => {
               icon: <AppstoreAddOutlined />,
               label: 'Generators',
               children: [
-                { key: '/random', icon: <ThunderboltOutlined />, label: <Link to="/random">Random Data</Link> },
-                { key: '/generator', icon: <BarcodeOutlined />, label: <Link to="/generator">QR & Barcode</Link> }
+                  {key: '/generator', icon: <BarcodeOutlined/>, label: <Link to="/generator">QR & Barcode</Link>},
+                  {key: '/random', icon: <ThunderboltOutlined/>, label: <Link to="/random">Random Data</Link>}
               ]
             },
             {
@@ -139,8 +139,8 @@ const AppLayout: React.FC = () => {
               icon: <ClockCircleOutlined />,
               label: 'Time & Cron',
               children: [
-                { key: '/timestamp', icon: <FieldTimeOutlined />, label: <Link to="/timestamp">Epoch Converter</Link> },
-                { key: '/cron', icon: <ToolOutlined />, label: <Link to="/cron">Cron Parser</Link> }
+                  {key: '/timestamp', icon: <FieldTimeOutlined/>, label: <Link to="/timestamp">Epoch Converter</Link>},
+                  {key: '/cron', icon: <ToolOutlined/>, label: <Link to="/cron">Cron Parser</Link>}
               ]
             },
             {
@@ -148,8 +148,8 @@ const AppLayout: React.FC = () => {
               icon: <BgColorsOutlined />,
               label: 'Design & UI',
               children: [
-                { key: '/html-viewer', icon: <Html5Outlined />, label: <Link to="/html-viewer">HTML Viewer</Link> },
-                { key: '/color', label: <Link to="/color">Color Picker</Link> }
+                  {key: '/html-viewer', icon: <Html5Outlined/>, label: <Link to="/html-viewer">HTML Viewer</Link>},
+                  {key: '/color', label: <Link to="/color">Color Picker</Link>}
               ]
             }
           ]}
@@ -201,8 +201,8 @@ const AppLayout: React.FC = () => {
 
 const App: React.FC = () => {
   const appTheme = useAppStore(state => state.theme);
-  
-  const antdTheme = useMemo(() => ({
+
+    const antdTheme = useMemo(() => ({
     algorithm: appTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
   }), [appTheme]);
 
