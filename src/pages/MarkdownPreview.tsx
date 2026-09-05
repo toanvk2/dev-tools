@@ -6,6 +6,7 @@ import DOMPurify from 'dompurify';
 import 'github-markdown-css/github-markdown.css';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
+import { APP_CONFIG } from '../config';
 
 const defaultMd = `# Web DevTools Collection 🚀
 
@@ -26,7 +27,7 @@ greet();
 
 > "Talk is cheap. Show me the code." - Linus Torvalds
 
-[Visit Github](https://github.com/toanvk2/dev-tools)
+[Visit Github](${APP_CONFIG.GITHUB_REPO})
 `;
 
 const MarkdownPreview: React.FC = () => {
