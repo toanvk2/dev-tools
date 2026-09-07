@@ -114,7 +114,7 @@ const MarkdownPreview: React.FC = () => {
               theme={isDark ? 'vs-dark' : 'vs'}
               value={mdCode}
               onChange={(value) => setMdCode(value || '')}
-              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on' }}
+              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16, bottom: 16 } }}
             />
             </div>
           </Card>

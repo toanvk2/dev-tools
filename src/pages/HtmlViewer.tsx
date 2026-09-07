@@ -66,7 +66,8 @@ const HtmlViewer: React.FC = () => {
                 fontSize: 14,
                 wordWrap: 'on',
                 formatOnPaste: true,
-                padding: { top: 16 }
+                scrollBeyondLastLine: false,
+                padding: { top: 16, bottom: 16 }
               }}
             />
           </Card>
