@@ -102,7 +102,22 @@ const SvgViewer: React.FC = () => {
 
   const previewHtml = useMemo(() => {
     if (!svgInput) return '';
-    return transformAndroidToSvg(svgInput);
+    let html = transformAndroidToSvg(svgInput);
+    
+    if (html.includes('<svg') && !html.includes('xmlns=')) {
+      html = html.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    
+    const styleBlock = `<style>
+      .svg-preview-container svg {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: auto;
+      }
+    </style>`;
+    
+    return styleBlock + html;
   }, [svgInput]);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -139,7 +154,12 @@ const SvgViewer: React.FC = () => {
   };
 
   const bgStyle = background === 'checkerboard' 
-    ? { backgroundImage: 'conic-gradient(#ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc)', backgroundSize: '20px 20px', backgroundPosition: '0 0, 10px 10px' }
+    ? { 
+        backgroundColor: '#e5e5f7',
+        backgroundImage: 'linear-gradient(45deg, #c4c4c4 25%, transparent 25%, transparent 75%, #c4c4c4 75%, #c4c4c4), linear-gradient(45deg, #c4c4c4 25%, transparent 25%, transparent 75%, #c4c4c4 75%, #c4c4c4)',
+        backgroundSize: '20px 20px',
+        backgroundPosition: '0 0, 10px 10px'
+      }
     : { backgroundColor: background };
 
   return (
@@ -217,9 +237,9 @@ const SvgViewer: React.FC = () => {
                 ...bgStyle 
               }}
             >
-              {/* Container to scale SVG responsively but keep aspect ratio */}
               <div 
-                style={{ maxWidth: '100%', maxHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                className="svg-preview-container"
+                style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 dangerouslySetInnerHTML={{ __html: previewHtml }} 
               />
             </div>
