@@ -140,12 +140,14 @@ const SvgViewer: React.FC = () => {
     }
 
     const styleBlock = `<style>
+      .svg-preview-container {
+        width: 100%;
+        height: 100%;
+      }
       .svg-preview-container svg {
-        /* Ensure tiny icons (e.g. 24x24) are blown up to at least 256x256 for easy viewing */
-        min-width: 256px;
-        min-height: 256px;
-        max-width: none;
-        max-height: none;
+        /* Phóng to/thu nhỏ (Fit) SVG sao cho vừa khít (100%) với ô Preview */
+        width: 100%;
+        height: 100%;
         display: block;
       }
     </style>`;
@@ -291,7 +293,7 @@ const SvgViewer: React.FC = () => {
                     <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
                       <div 
                         className="svg-preview-container"
-                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '100%', minHeight: '100%' }}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}
                         dangerouslySetInnerHTML={{ __html: previewHtml }} 
                       />
                     </TransformComponent>
