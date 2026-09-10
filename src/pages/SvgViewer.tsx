@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import { Card, Row, Col, Typography, message, Segmented } from 'antd';
+import { Card, Row, Col, Typography, message, Segmented, Button, Space, Tooltip } from 'antd';
+import { ZoomInOutlined, ZoomOutOutlined, UndoOutlined } from '@ant-design/icons';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import Editor from '@monaco-editor/react';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
@@ -110,10 +112,9 @@ const SvgViewer: React.FC = () => {
     
     const styleBlock = `<style>
       .svg-preview-container svg {
+        /* Remove aggressive width:100% so small icons stay small and we can zoom them */
         max-width: 100%;
         max-height: 100%;
-        width: 100%;
-        height: auto;
       }
     </style>`;
     
@@ -237,11 +238,34 @@ const SvgViewer: React.FC = () => {
                 ...bgStyle 
               }}
             >
-              <div 
-                className="svg-preview-container"
-                style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                dangerouslySetInnerHTML={{ __html: previewHtml }} 
-              />
+              
+              <TransformWrapper
+                initialScale={1}
+                minScale={0.1}
+                maxScale={50}
+                centerOnInit={true}
+                wheel={{ step: 0.1 }}
+              >
+                {({ zoomIn, zoomOut, resetTransform }) => (
+                  <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 10 }}>
+                      <Space direction="vertical" size="small" style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.7)', padding: 8, borderRadius: 8, backdropFilter: 'blur(4px)' }}>
+                        <Tooltip title="Phóng to" placement="left"><Button icon={<ZoomInOutlined />} onClick={() => zoomIn()} size="small" /></Tooltip>
+                        <Tooltip title="Thu nhỏ" placement="left"><Button icon={<ZoomOutOutlined />} onClick={() => zoomOut()} size="small" /></Tooltip>
+                        <Tooltip title="Khôi phục" placement="left"><Button icon={<UndoOutlined />} onClick={() => resetTransform()} size="small" /></Tooltip>
+                      </Space>
+                    </div>
+                    <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
+                      <div 
+                        className="svg-preview-container"
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '100%', minHeight: '100%' }}
+                        dangerouslySetInnerHTML={{ __html: previewHtml }} 
+                      />
+                    </TransformComponent>
+                  </div>
+                )}
+              </TransformWrapper>
+
             </div>
           </Card>
         </Col>
