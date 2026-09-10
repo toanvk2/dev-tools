@@ -120,7 +120,7 @@ const TextEncoder: React.FC = () => {
               theme={editorTheme}
               value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ minimap: { enabled: false }, wordWrap: 'on' }}
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </div>
         </Col>
@@ -134,7 +134,7 @@ const TextEncoder: React.FC = () => {
               defaultLanguage="text"
               theme={editorTheme}
               value={output}
-              options={{ readOnly: true, minimap: { enabled: false }, wordWrap: 'on' }}
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'on' }}
             />
           </div>
         </Col>

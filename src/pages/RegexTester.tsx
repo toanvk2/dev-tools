@@ -179,7 +179,7 @@ const RegexTester: React.FC = () => {
                 value={testString}
                 onChange={(val) => setTestString(val || '')}
                 onMount={handleEditorDidMount}
-                options={{ minimap: { enabled: false }, fontSize: 15, wordWrap: 'on', lineNumbers: 'off', padding: { top: 8 } }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 15, wordWrap: 'on', lineNumbers: 'off', scrollBeyondLastLine: false, padding: { top: 16 } }}
               />
             </div>
           </div>
