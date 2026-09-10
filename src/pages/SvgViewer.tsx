@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { Card, Row, Col, Typography, message, Segmented, Button, Space, Tooltip } from 'antd';
 import { ZoomInOutlined, ZoomOutOutlined, UndoOutlined } from '@ant-design/icons';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import type { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 import Editor from '@monaco-editor/react';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
@@ -21,6 +22,7 @@ const defaultSvg = `<vector xmlns:android="http://schemas.android.com/apk/res/an
 const SvgViewer: React.FC = () => {
   const [svgInput, setSvgInput] = useCacheState<string>('svg-viewer-input', defaultSvg);
   const [background, setBackground] = useState<string>('checkerboard');
+  const transformRef = useRef<ReactZoomPanPinchRef>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const appTheme = useAppStore(state => state.theme);
@@ -180,6 +182,7 @@ const SvgViewer: React.FC = () => {
         const content = event.target?.result;
         if (typeof content === 'string') {
           setSvgInput(content);
+          if (transformRef.current) transformRef.current.resetTransform();
           message.success(`Đã tải file ${file.name}`);
         }
       };
@@ -274,6 +277,7 @@ const SvgViewer: React.FC = () => {
             >
               
               <TransformWrapper
+                ref={transformRef}
                 initialScale={1}
                 minScale={0.1}
                 maxScale={100}
