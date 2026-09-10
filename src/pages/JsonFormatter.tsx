@@ -70,7 +70,7 @@ const JsonFormatter: React.FC = () => {
               theme={editorTheme}
               value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ minimap: { enabled: false }, formatOnPaste: true, scrollBeyondLastLine: false, padding: { top: 16 } }}
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, formatOnPaste: true, scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </div>
         </Col>
@@ -113,7 +113,7 @@ const JsonFormatter: React.FC = () => {
                   defaultLanguage="json"
                   theme={editorTheme}
                   value={outputRaw}
-                  options={{ readOnly: true, minimap: { enabled: false } }}
+                  options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false } }}
                 />
               </div>
             )}

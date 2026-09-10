@@ -45,7 +45,7 @@ const DiffChecker: React.FC = () => {
                 theme={editorTheme}
                 value={original}
                 onChange={(val) => setOriginal(val || '')}
-                options={{ minimap: { enabled: false }, scrollBeyondLastLine: false, padding: { top: 16 } }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, scrollBeyondLastLine: false, padding: { top: 16 } }}
               />
             </Col>
             <Col span={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -58,7 +58,7 @@ const DiffChecker: React.FC = () => {
                 theme={editorTheme}
                 value={modified}
                 onChange={(val) => setModified(val || '')}
-                options={{ minimap: { enabled: false }, scrollBeyondLastLine: false, padding: { top: 16 } }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, scrollBeyondLastLine: false, padding: { top: 16 } }}
               />
             </Col>
           </Row>
@@ -68,8 +68,7 @@ const DiffChecker: React.FC = () => {
             theme={editorTheme}
             original={original}
             modified={modified}
-            options={{
-              minimap: { enabled: false },
+            options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false },
               renderSideBySide: true,
               readOnly: true
             }}

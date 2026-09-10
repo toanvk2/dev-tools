@@ -61,8 +61,7 @@ const HtmlViewer: React.FC = () => {
               theme={isDark ? 'vs-dark' : 'vs'}
               value={htmlCode}
               onChange={(value) => setHtmlCode(value || '')}
-              options={{
-                minimap: { enabled: false },
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false },
                 fontSize: 14,
                 wordWrap: 'on',
                 formatOnPaste: true,

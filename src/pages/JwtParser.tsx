@@ -58,7 +58,7 @@ const JwtParser: React.FC = () => {
                 defaultLanguage="json"
                 theme={editorTheme}
                 value={header || '{\n\n}'}
-                options={{ readOnly: true, minimap: { enabled: false }, lineNumbers: 'off' }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, lineNumbers: 'off' }}
               />
             </div>
           </div>
@@ -73,7 +73,7 @@ const JwtParser: React.FC = () => {
                 defaultLanguage="json"
                 theme={editorTheme}
                 value={payload || '{\n\n}'}
-                options={{ readOnly: true, minimap: { enabled: false }, lineNumbers: 'off' }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, lineNumbers: 'off' }}
               />
             </div>
           </div>

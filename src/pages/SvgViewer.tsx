@@ -180,7 +180,7 @@ const SvgViewer: React.FC = () => {
                 theme={isDark ? 'vs-dark' : 'vs'}
                 value={svgInput}
                 onChange={(value) => setSvgInput(value || '')}
-                options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
               />
             </div>
           </Card>
