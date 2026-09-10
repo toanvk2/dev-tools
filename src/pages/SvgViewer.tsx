@@ -106,15 +106,37 @@ const SvgViewer: React.FC = () => {
     if (!svgInput) return '';
     let html = transformAndroidToSvg(svgInput);
     
-    if (html.includes('<svg') && !html.includes('xmlns=')) {
-      html = html.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+    try {
+      const parser = new DOMParser();
+      // Use text/html to parse flexibly, then extract SVG, or use image/svg+xml
+      const doc = parser.parseFromString(html, "image/svg+xml");
+      const svgEl = doc.documentElement;
+      
+      if (svgEl && svgEl.tagName.toLowerCase() === 'svg') {
+        if (!svgEl.hasAttribute('xmlns')) {
+          svgEl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        }
+        // If width/height missing, infer from viewBox so it has a natural size
+        const viewBoxAttr = svgEl.getAttribute('viewBox');
+        if (!svgEl.hasAttribute('width') && viewBoxAttr) {
+          const vb = viewBoxAttr.trim().split(/[ ,]+/);
+          if (vb.length === 4) {
+            svgEl.setAttribute('width', vb[2]);
+            svgEl.setAttribute('height', vb[3]);
+          }
+        }
+        html = svgEl.outerHTML;
+      }
+    } catch (e) {
+      console.error("SVG parsing error", e);
     }
-    
+
     const styleBlock = `<style>
       .svg-preview-container svg {
-        /* Remove aggressive width:100% so small icons stay small and we can zoom them */
-        max-width: 100%;
-        max-height: 100%;
+        /* Natural size, allow react-zoom-pan-pinch to handle scaling */
+        max-width: none;
+        max-height: none;
+        display: block;
       }
     </style>`;
     
@@ -242,17 +264,18 @@ const SvgViewer: React.FC = () => {
               <TransformWrapper
                 initialScale={1}
                 minScale={0.1}
-                maxScale={50}
+                maxScale={100}
                 centerOnInit={true}
-                wheel={{ step: 0.1 }}
+                centerZoomedOut={true}
+                wheel={{ step: 0.05 }}
               >
                 {({ zoomIn, zoomOut, resetTransform }) => (
                   <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 10 }}>
-                      <Space direction="vertical" size="small" style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.7)', padding: 8, borderRadius: 8, backdropFilter: 'blur(4px)' }}>
-                        <Tooltip title="Phóng to" placement="left"><Button icon={<ZoomInOutlined />} onClick={() => zoomIn()} size="small" /></Tooltip>
-                        <Tooltip title="Thu nhỏ" placement="left"><Button icon={<ZoomOutOutlined />} onClick={() => zoomOut()} size="small" /></Tooltip>
-                        <Tooltip title="Khôi phục" placement="left"><Button icon={<UndoOutlined />} onClick={() => resetTransform()} size="small" /></Tooltip>
+                    <div style={{ position: 'absolute', bottom: 12, right: 12, zIndex: 10 }}>
+                      <Space direction="horizontal" size={4} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.7)', padding: '4px', borderRadius: '6px', backdropFilter: 'blur(4px)', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+                        <Tooltip title="Phóng to" placement="top"><Button icon={<ZoomInOutlined />} onClick={() => zoomIn(1)} size="small" type="text" style={{ color: isDark ? '#fff' : '#000' }} /></Tooltip>
+                        <Tooltip title="Thu nhỏ" placement="top"><Button icon={<ZoomOutOutlined />} onClick={() => zoomOut(1)} size="small" type="text" style={{ color: isDark ? '#fff' : '#000' }} /></Tooltip>
+                        <Tooltip title="Khôi phục" placement="top"><Button icon={<UndoOutlined />} onClick={() => resetTransform()} size="small" type="text" style={{ color: isDark ? '#fff' : '#000' }} /></Tooltip>
                       </Space>
                     </div>
                     <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
