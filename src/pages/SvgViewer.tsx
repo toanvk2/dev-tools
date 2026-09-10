@@ -125,6 +125,14 @@ const SvgViewer: React.FC = () => {
             svgEl.setAttribute('height', vb[3]);
           }
         }
+        
+        if (!viewBoxAttr && svgEl.hasAttribute('width') && svgEl.hasAttribute('height')) {
+          const w = parseFloat(svgEl.getAttribute('width') || '');
+          const h = parseFloat(svgEl.getAttribute('height') || '');
+          if (!isNaN(w) && !isNaN(h)) {
+            svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
+          }
+        }
         html = svgEl.outerHTML;
       }
     } catch (e) {
@@ -133,7 +141,9 @@ const SvgViewer: React.FC = () => {
 
     const styleBlock = `<style>
       .svg-preview-container svg {
-        /* Natural size, allow react-zoom-pan-pinch to handle scaling */
+        /* Ensure tiny icons (e.g. 24x24) are blown up to at least 256x256 for easy viewing */
+        min-width: 256px;
+        min-height: 256px;
         max-width: none;
         max-height: none;
         display: block;
