@@ -88,7 +88,7 @@ const MarkdownPreview: React.FC = () => {
               <Text type="secondary" style={{ fontSize: 12, fontWeight: 'normal' }}>Kéo thả file .md vào đây</Text>
             </div>}
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, position: 'relative' } }}
+            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, position: 'relative', overflow: 'hidden' } }}
           >
             <div 
               onDragOver={handleDragOver} 
@@ -114,7 +114,7 @@ const MarkdownPreview: React.FC = () => {
               theme={isDark ? 'vs-dark' : 'vs'}
               value={mdCode}
               onChange={(value) => setMdCode(value || '')}
-              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16, bottom: 16 } }}
+              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
             </div>
           </Card>

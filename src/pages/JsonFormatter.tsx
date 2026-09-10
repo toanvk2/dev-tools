@@ -70,7 +70,7 @@ const JsonFormatter: React.FC = () => {
               theme={editorTheme}
               value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ minimap: { enabled: false }, formatOnPaste: true, scrollBeyondLastLine: false, padding: { top: 16, bottom: 16 } }}
+              options={{ minimap: { enabled: false }, formatOnPaste: true, scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </div>
         </Col>

@@ -72,7 +72,7 @@ const YamlConverter: React.FC = () => {
           <Card 
             title={<Space><Text strong>JSON</Text><Button type="text" size="small" icon={<FormatPainterOutlined />} onClick={formatJson} title="Format JSON" /></Space>} 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0 } }}
+            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, overflow: 'hidden' } }}
           >
             <Editor
               height="100%"
@@ -80,7 +80,7 @@ const YamlConverter: React.FC = () => {
               theme={isDark ? 'vs-dark' : 'vs'}
               value={jsonCode}
               onChange={handleJsonChange}
-              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16, bottom: 16 } }}
+              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </Card>
         </Col>
@@ -89,7 +89,7 @@ const YamlConverter: React.FC = () => {
           <Card 
             title="YAML" 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0 } }}
+            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, overflow: 'hidden' } }}
           >
             <Editor
               height="100%"
@@ -97,7 +97,7 @@ const YamlConverter: React.FC = () => {
               theme={isDark ? 'vs-dark' : 'vs'}
               value={yamlCode}
               onChange={handleYamlChange}
-              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16, bottom: 16 } }}
+              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </Card>
         </Col>

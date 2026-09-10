@@ -73,8 +73,8 @@ const AppLayout: React.FC = () => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider breakpoint="lg" collapsedWidth="0" theme={appTheme}>
+    <Layout style={{ height: '100vh', overflow: 'hidden' }}>
+      <Sider breakpoint="lg" collapsedWidth="0" theme={appTheme} style={{ overflowY: 'auto', height: '100vh', position: 'sticky', top: 0, left: 0 }}>
         <Link to="/" style={{ textDecoration: 'none' }}>
             <div
                 style={{
@@ -158,7 +158,7 @@ const AppLayout: React.FC = () => {
           ]}
         />
       </Sider>
-      <Layout style={{ background: isDark ? '#000000' : '#f5f5f5' }}>
+      <Layout style={{ background: isDark ? '#000000' : '#f5f5f5', display: 'flex', flexDirection: 'column' }}>
         <Header style={{ padding: '0 24px', background: isDark ? '#141414' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.3s' }}>
           <Title level={4} style={{ margin: 0 }}>{getPageTitle(location.pathname)}</Title>
           <Button
@@ -168,8 +168,8 @@ const AppLayout: React.FC = () => {
             style={{ fontSize: '18px', width: 40, height: 40 }}
           />
         </Header>
-        <Content style={{ padding: 24, margin: 0, height: '100%', overflow: 'auto' }}>
-          <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Content style={{ padding: 24, margin: 0, flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+          
             <Suspense fallback={<div style={{ padding: 50, textAlign: 'center', fontSize: 16 }}>Đang tải công cụ... (Loading)</div>}>
               <Routes>
               <Route path="/" element={<Home />} />
@@ -193,7 +193,6 @@ const AppLayout: React.FC = () => {
 
             </Routes>
             </Suspense>
-          </div>
         </Content>
         <Footer style={{ textAlign: 'center', transition: 'all 0.3s', background: 'transparent' }}>
           DevTools ©{new Date().getFullYear()} Created with React & Ant Design

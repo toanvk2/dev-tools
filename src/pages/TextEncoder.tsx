@@ -120,7 +120,7 @@ const TextEncoder: React.FC = () => {
               theme={editorTheme}
               value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ minimap: { enabled: false }, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16, bottom: 16 } }}
+              options={{ minimap: { enabled: false }, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </div>
         </Col>

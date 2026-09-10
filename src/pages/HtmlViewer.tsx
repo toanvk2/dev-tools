@@ -52,7 +52,7 @@ const HtmlViewer: React.FC = () => {
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
             styles={{ 
               header: { borderBottom: '1px solid #f0f0f0' }, 
-              body: { flex: 1, padding: 0 } 
+              body: { flex: 1, padding: 0, overflow: 'hidden' } 
             }}
           >
             <Editor
@@ -67,7 +67,7 @@ const HtmlViewer: React.FC = () => {
                 wordWrap: 'on',
                 formatOnPaste: true,
                 scrollBeyondLastLine: false,
-                padding: { top: 16, bottom: 16 }
+                padding: { top: 16 }
               }}
             />
           </Card>
