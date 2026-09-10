@@ -23,6 +23,17 @@ const SvgViewer: React.FC = () => {
   const [svgInput, setSvgInput] = useCacheState<string>('svg-viewer-input', defaultSvg);
   const [background, setBackground] = useState<string>('checkerboard');
   const transformRef = useRef<ReactZoomPanPinchRef>(null);
+
+  const handleEditorDidMount = (editor: any) => {
+    editor.onDidPaste(() => {
+      // Khi user paste code mới, ta reset lại Zoom/Pan
+      if (transformRef.current) {
+        setTimeout(() => {
+          transformRef.current?.resetTransform();
+        }, 50);
+      }
+    });
+  };
   const [isDragging, setIsDragging] = useState(false);
 
   const appTheme = useAppStore(state => state.theme);
@@ -238,6 +249,7 @@ const SvgViewer: React.FC = () => {
                 theme={isDark ? 'vs-dark' : 'vs'}
                 value={svgInput}
                 onChange={(value) => setSvgInput(value || '')}
+                onMount={handleEditorDidMount}
                 options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
               />
             </div>
