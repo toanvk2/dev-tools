@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import { Row, Col, Typography, Input, Select, Segmented, Button, Card, Space } from 'antd';
-import { DownloadOutlined, QrcodeOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Input, Select, Segmented, Button, Card, Space, Drawer, List } from 'antd';
+import { DownloadOutlined, QrcodeOutlined, BarcodeOutlined, HistoryOutlined, DeleteOutlined } from '@ant-design/icons';
+import { useEffect, useState } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import Barcode from 'react-barcode';
 import { useCacheState } from '../hooks/useCacheState';
@@ -23,7 +24,23 @@ const CodeGenerator: React.FC = () => {
   const appTheme = useAppStore(state => state.theme);
   const isDark = appTheme === 'dark';
 
+  const [history, setHistory] = useCacheState<string[]>('code-history', []);
+  const [historyVisible, setHistoryVisible] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Auto save to history after 1s of no typing
+  useEffect(() => {
+    if (!input || input.trim() === '') return;
+    const timer = setTimeout(() => {
+      setHistory(prev => {
+        const trimmed = input.trim();
+        const filtered = prev.filter(item => item !== trimmed);
+        return [trimmed, ...filtered].slice(0, 100);
+      });
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [input, setHistory]);
 
   const handleDownload = () => {
     if (!containerRef.current) return;
@@ -102,45 +119,66 @@ const CodeGenerator: React.FC = () => {
         )}
       </div>
 
-      <Row gutter={24} style={{ flex: 1 }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center' }}>
-            <Text strong>Nội dung (Input Data)</Text>
-          </div>
-          <TextArea
-            style={{ 
-              flex: 1, 
-              resize: 'none', 
-              fontSize: 16, 
-              padding: 16, 
-              fontFamily: 'monospace' 
+      <Row gutter={24} style={{ flex: 1, margin: 0 }}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <Card 
+            title={
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>Nội dung (Input Data)</span>
+                <Button 
+                  type="text" 
+                  icon={<HistoryOutlined />} 
+                  onClick={() => setHistoryVisible(true)}
+                  title="Lịch sử (100 mục gần nhất)"
+                />
+              </div>
+            }
+            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
+            styles={{ 
+              header: { borderBottom: '1px solid #f0f0f0' }, 
+              body: { flex: 1, padding: 0, display: 'flex' } 
             }}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Nhập nội dung để tạo mã..."
-          />
+          >
+            <TextArea
+              style={{ 
+                flex: 1, 
+                resize: 'none', 
+                fontSize: 16, 
+                padding: 16, 
+                fontFamily: 'monospace',
+                border: 'none',
+                borderRadius: 0,
+                boxShadow: 'none'
+              }}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Nhập nội dung để tạo mã..."
+            />
+          </Card>
         </Col>
         
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text strong>Kết quả (Output)</Text>
-            <Button type="primary" icon={<DownloadOutlined />} onClick={handleDownload} disabled={!input}>
-              Tải xuống
-            </Button>
-          </div>
-          
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
           <Card 
-            style={{ 
-              flex: 1, 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              background: isDark ? '#141414' : '#f0f2f5',
-              borderColor: isDark ? '#434343' : '#d9d9d9',
-              borderRadius: 6,
-              overflow: 'auto'
+            title={
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>Kết quả (Output)</span>
+                <Button type="primary" size="small" icon={<DownloadOutlined />} onClick={handleDownload} disabled={!input}>
+                  Tải xuống
+                </Button>
+              </div>
+            }
+            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
+            styles={{ 
+              header: { borderBottom: '1px solid #f0f0f0' }, 
+              body: { 
+                flex: 1, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                background: isDark ? '#141414' : '#f0f2f5',
+                overflow: 'auto'
+              } 
             }}
-            styles={{ body: { display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300, width: '100%' } }}
           >
             {input ? (
               <div 
@@ -177,6 +215,44 @@ const CodeGenerator: React.FC = () => {
           </Card>
         </Col>
       </Row>
+
+      <Drawer
+        title={
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>Lịch sử gần đây (Tối đa 100)</span>
+            {history.length > 0 && (
+              <Button danger type="text" icon={<DeleteOutlined />} onClick={() => setHistory([])} size="small">Xóa tất cả</Button>
+            )}
+          </div>
+        }
+        placement="left"
+        onClose={() => setHistoryVisible(false)}
+        open={historyVisible}
+        width={350}
+        styles={{ body: { padding: 0 } }}
+      >
+        {history.length === 0 ? (
+          <div style={{ padding: 24, textAlign: 'center' }}><Text type="secondary">Chưa có lịch sử nào.</Text></div>
+        ) : (
+          <List
+            dataSource={history}
+            renderItem={(item) => (
+              <List.Item 
+                style={{ padding: '12px 24px', cursor: 'pointer', borderBottom: '1px solid #f0f0f0' }}
+                onClick={() => {
+                  setInput(item);
+                  setHistoryVisible(false);
+                }}
+                className="history-item-hover"
+              >
+                <div style={{ width: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <Text>{item}</Text>
+                </div>
+              </List.Item>
+            )}
+          />
+        )}
+      </Drawer>
     </div>
   );
 };

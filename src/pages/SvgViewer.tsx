@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { Card, Row, Col, Typography, message, Segmented, Button, Space, Tooltip } from 'antd';
 import { ZoomInOutlined, ZoomOutOutlined, UndoOutlined } from '@ant-design/icons';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
@@ -23,16 +23,23 @@ const SvgViewer: React.FC = () => {
   const [svgInput, setSvgInput] = useCacheState<string>('svg-viewer-input', defaultSvg);
   const [background, setBackground] = useState<string>('checkerboard');
   const transformRef = useRef<ReactZoomPanPinchRef>(null);
+  const prevInputLength = useRef<number>(0);
 
-  const handleEditorDidMount = (editor: any) => {
-    editor.onDidPaste(() => {
-      // Khi user paste code mới, ta reset lại Zoom/Pan
-      if (transformRef.current) {
-        setTimeout(() => {
-          transformRef.current?.resetTransform();
-        }, 50);
+    useEffect(() => {
+    if (svgInput) {
+      const lengthDiff = Math.abs(svgInput.length - prevInputLength.current);
+      // If length changes by more than 50 chars at once, it's a paste or drop or large replace.
+      // This is much more reliable than Monaco's onDidPaste.
+      if (lengthDiff > 50 && transformRef.current) {
+        // Reset zoom instantly (0ms animation)
+        transformRef.current.resetTransform(0);
       }
-    });
+      prevInputLength.current = svgInput.length;
+    }
+  }, [svgInput]);
+
+  const handleEditorDidMount = () => {
+    // onMount placeholder if needed
   };
   const [isDragging, setIsDragging] = useState(false);
 
