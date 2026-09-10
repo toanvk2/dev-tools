@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined } from '@ant-design/icons';
+import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined, PictureOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
@@ -90,6 +90,12 @@ const Home: React.FC = () => {
       description: 'Soạn thảo và Live Preview HTML, CSS, JS ngay trên trình duyệt mà không cần Server.',
       icon: <Html5Outlined style={{ fontSize: 40, color: '#e34f26' }} />,
       link: '/html-viewer'
+    },
+    {
+      title: 'SVG Viewer',
+      description: 'Xem trước file SVG và tự động chuyển đổi định dạng Android Vector Drawable (XML) sang SVG.',
+      icon: <PictureOutlined style={{ fontSize: 40, color: '#f5222d' }} />,
+      link: '/svg-viewer'
     },
     {
       title: 'Color Converter',
