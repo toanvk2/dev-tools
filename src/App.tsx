@@ -17,7 +17,6 @@ const HtmlViewer = lazy(() => import('./pages/HtmlViewer'));
 const RegexTester = lazy(() => import('./pages/RegexTester'));
 const YamlConverter = lazy(() => import('./pages/YamlConverter'));
 const UrlParser = lazy(() => import('./pages/UrlParser'));
-const UrlEncodeDecode = lazy(() => import('./pages/UrlEncodeDecode'));
 const ImageBase64 = lazy(() => import('./pages/ImageBase64'));
 const NumberConverter = lazy(() => import('./pages/NumberConverter'));
 const LoremIpsum = lazy(() => import('./pages/LoremIpsum'));
@@ -44,7 +43,7 @@ const AppLayout: React.FC = () => {
   const getActiveGroup = () => {
     const path = location.pathname;
     if (['/json-formatter', '/diff', '/yaml', '/regex', '/markdown', '/number-converter'].includes(path)) return 'data';
-    if (['/encoder', '/jwt', '/hash', '/url-parser', '/url-encode-decode'].includes(path)) return 'security';
+    if (['/encoder', '/jwt', '/hash', '/url-parser'].includes(path)) return 'security';
     if (['/random', '/generator', '/lorem-ipsum'].includes(path)) return 'generators';
     if (['/timestamp', '/cron'].includes(path)) return 'time';
     if (['/color', '/html-viewer', '/svg-viewer', '/image-base64'].includes(path)) return 'design';
@@ -74,7 +73,6 @@ const AppLayout: React.FC = () => {
       case '/yaml': return 'JSON ↔ YAML Converter';
       case '/regex': return 'Regex Tester';
       case '/url-parser': return 'URL Parser';
-      case '/url-encode-decode': return 'URL Encode / Decode';
       case '/markdown': return 'Markdown Preview';
       default: return 'DevTools';
     }
@@ -131,7 +129,6 @@ const AppLayout: React.FC = () => {
               label: 'Crypto & Security',
               children: [
                   {key: '/url-parser', icon: <LinkOutlined/>, label: <Link to="/url-parser">URL Parser</Link>},
-                  {key: '/url-encode-decode', icon: <SwapOutlined/>, label: <Link to="/url-encode-decode">URL Encode/Decode</Link>},
                   {key: '/encoder', icon: <SwapOutlined/>, label: <Link to="/encoder">Text Encoders</Link>},
                   {key: '/hash', icon: <KeyOutlined/>, label: <Link to="/hash">Hash Generator</Link>},
                   {key: '/jwt', icon: <SecurityScanOutlined/>, label: <Link to="/jwt">JWT Parser</Link>}
@@ -181,16 +178,15 @@ const AppLayout: React.FC = () => {
           />
         </Header>
         <Content style={{ padding: 24, margin: 0, flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
-          
+
             <Suspense fallback={<div style={{ padding: 50, textAlign: 'center', fontSize: 16 }}>Đang tải công cụ... (Loading)</div>}>
               <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/html-viewer" element={<HtmlViewer />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
-<Route path="/yaml" element={<YamlConverter />} />
+              <Route path="/yaml" element={<YamlConverter/>}/>
               <Route path="/regex" element={<RegexTester />} />
               <Route path="/url-parser" element={<UrlParser />} />
-              <Route path="/url-encode-decode" element={<UrlEncodeDecode />} />
               <Route path="/image-base64" element={<ImageBase64 />} />
               <Route path="/number-converter" element={<NumberConverter />} />
               <Route path="/lorem-ipsum" element={<LoremIpsum />} />

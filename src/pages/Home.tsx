@@ -104,12 +104,6 @@ const Home: React.FC = () => {
       link: '/color'
     },
     {
-      title: 'URL Encode/Decode',
-      description: 'Mã hóa và giải mã các tham số URL, chuỗi văn bản an toàn',
-      icon: <SwapOutlined style={{ fontSize: 40, color: '#1890ff' }} />,
-      link: '/url-encode-decode'
-    },
-    {
       title: 'Base64 ↔ Image',
       description: 'Chuyển đổi hình ảnh sang chuỗi Base64 và ngược lại',
       icon: <FileImageOutlined style={{ fontSize: 40, color: '#eb2f96' }} />,
