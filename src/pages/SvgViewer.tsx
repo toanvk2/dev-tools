@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { Card, Row, Col, Typography, message, Segmented, Button, Space, Tooltip } from 'antd';
 import { ZoomInOutlined, ZoomOutOutlined, UndoOutlined } from '@ant-design/icons';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
@@ -23,22 +23,8 @@ const SvgViewer: React.FC = () => {
   const [svgInput, setSvgInput] = useCacheState<string>('svg-viewer-input', defaultSvg);
   const [background, setBackground] = useState<string>('checkerboard');
   const transformRef = useRef<ReactZoomPanPinchRef>(null);
-  const prevInputLength = useRef<number>(0);
 
-    useEffect(() => {
-    if (svgInput) {
-      const lengthDiff = Math.abs(svgInput.length - prevInputLength.current);
-      // If length changes by more than 50 chars at once, it's a paste or drop or large replace.
-      // This is much more reliable than Monaco's onDidPaste.
-      if (lengthDiff > 50 && transformRef.current) {
-        // Reset zoom instantly (0ms animation)
-        transformRef.current.resetTransform(0);
-      }
-      prevInputLength.current = svgInput.length;
-    }
-  }, [svgInput]);
-
-  const handleEditorDidMount = () => {
+    const handleEditorDidMount = () => {
     // onMount placeholder if needed
   };
   const [isDragging, setIsDragging] = useState(false);
@@ -255,7 +241,22 @@ const SvgViewer: React.FC = () => {
                 language="xml"
                 theme={isDark ? 'vs-dark' : 'vs'}
                 value={svgInput}
-                onChange={(value) => setSvgInput(value || '')}
+                onChange={(value, event) => {
+                  const oldLength = svgInput.length;
+                  setSvgInput(value || '');
+                  
+                  if (transformRef.current && event && event.changes && event.changes.length > 0) {
+                    const change = event.changes[0];
+                    // Ctrl+A -> Ctrl+V (thay thế toàn bộ)
+                    const isReplaceAll = change.rangeOffset === 0 && change.rangeLength === oldLength && change.text.length > 0;
+                    // Paste vào file trống
+                    const isPasteIntoEmpty = oldLength === 0 && change.text.length > 0;
+                    
+                    if (isReplaceAll || isPasteIntoEmpty) {
+                      transformRef.current.resetTransform(0);
+                    }
+                  }
+                }}
                 onMount={handleEditorDidMount}
                 options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
               />

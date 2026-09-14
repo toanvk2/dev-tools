@@ -17,6 +17,7 @@ const HtmlViewer = lazy(() => import('./pages/HtmlViewer'));
 const RegexTester = lazy(() => import('./pages/RegexTester'));
 const YamlConverter = lazy(() => import('./pages/YamlConverter'));
 const UrlParser = lazy(() => import('./pages/UrlParser'));
+const UrlEncodeDecode = lazy(() => import('./pages/UrlEncodeDecode'));
 const SvgViewer = lazy(() => import('./pages/SvgViewer'));
 const MarkdownPreview = lazy(() => import('./pages/MarkdownPreview'));
 import { FieldTimeOutlined, ThunderboltOutlined, DatabaseOutlined, SafetyOutlined, AppstoreAddOutlined, ToolOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined } from '@ant-design/icons';
@@ -40,7 +41,7 @@ const AppLayout: React.FC = () => {
   const getActiveGroup = () => {
     const path = location.pathname;
     if (['/json-formatter', '/diff', '/yaml', '/regex', '/markdown'].includes(path)) return 'data';
-    if (['/encoder', '/jwt', '/hash', '/url-parser'].includes(path)) return 'security';
+    if (['/encoder', '/jwt', '/hash', '/url-parser', '/url-encode-decode'].includes(path)) return 'security';
     if (['/random', '/generator'].includes(path)) return 'generators';
     if (['/timestamp', '/cron'].includes(path)) return 'time';
     if (['/color', '/html-viewer', '/svg-viewer'].includes(path)) return 'design';
@@ -67,6 +68,7 @@ const AppLayout: React.FC = () => {
       case '/yaml': return 'JSON ↔ YAML Converter';
       case '/regex': return 'Regex Tester';
       case '/url-parser': return 'URL Parser';
+      case '/url-encode-decode': return 'URL Encode / Decode';
       case '/markdown': return 'Markdown Preview';
       default: return 'DevTools';
     }
@@ -122,6 +124,7 @@ const AppLayout: React.FC = () => {
               label: 'Crypto & Security',
               children: [
                   {key: '/url-parser', icon: <LinkOutlined/>, label: <Link to="/url-parser">URL Parser</Link>},
+                  {key: '/url-encode-decode', icon: <SwapOutlined/>, label: <Link to="/url-encode-decode">URL Encode/Decode</Link>},
                   {key: '/encoder', icon: <SwapOutlined/>, label: <Link to="/encoder">Text Encoders</Link>},
                   {key: '/hash', icon: <KeyOutlined/>, label: <Link to="/hash">Hash Generator</Link>},
                   {key: '/jwt', icon: <SecurityScanOutlined/>, label: <Link to="/jwt">JWT Parser</Link>}
@@ -178,6 +181,7 @@ const AppLayout: React.FC = () => {
 <Route path="/yaml" element={<YamlConverter />} />
               <Route path="/regex" element={<RegexTester />} />
               <Route path="/url-parser" element={<UrlParser />} />
+              <Route path="/url-encode-decode" element={<UrlEncodeDecode />} />
               <Route path="/markdown" element={<MarkdownPreview />} />
               <Route path="/encoder" element={<TextEncoder />} />
               <Route path="/jwt" element={<JwtParser />} />
