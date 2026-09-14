@@ -92,11 +92,11 @@ const AppLayout: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: isDark ? '#fff' : '#000',
-              fontWeight: 'bold',
-              transition: 'all 0.3s',
-              cursor: 'pointer'
-            }}
-          >
+                    fontWeight: 'bold',
+                    transition: 'all 0.3s',
+                    cursor: 'pointer'
+                }}
+            >
             DEV TOOLS
           </div>
         </Link>
@@ -116,7 +116,11 @@ const AppLayout: React.FC = () => {
                       label: <Link to="/json-formatter">JSON Formatter</Link>
                   },
                   {key: '/yaml', icon: <RetweetOutlined/>, label: <Link to="/yaml">JSON ↔ YAML</Link>},
-                  {key: '/number-converter', icon: <DatabaseOutlined/>, label: <Link to="/number-converter">Number Converter</Link>},
+                  {
+                      key: '/number-converter',
+                      icon: <DatabaseOutlined/>,
+                      label: <Link to="/number-converter">Number Converter</Link>
+                  },
                   {key: '/regex', icon: <CodeOutlined/>, label: <Link to="/regex">Regex Tester</Link>},
                   {key: '/diff', icon: <DiffOutlined/>, label: <Link to="/diff">Diff Checker</Link>},
                   {key: '/markdown', icon: <FileTextOutlined/>, label: <Link to="/markdown">Markdown Preview</Link>}
@@ -129,7 +133,7 @@ const AppLayout: React.FC = () => {
               label: 'Crypto & Security',
               children: [
                   {key: '/url-parser', icon: <LinkOutlined/>, label: <Link to="/url-parser">URL Parser</Link>},
-                  {key: '/encoder', icon: <SwapOutlined/>, label: <Link to="/encoder">Text Encoders</Link>},
+                  {key: '/encoder', icon: <SwapOutlined/>, label: <Link to="/encoder">Encoder/Decoder</Link>},
                   {key: '/hash', icon: <KeyOutlined/>, label: <Link to="/hash">Hash Generator</Link>},
                   {key: '/jwt', icon: <SecurityScanOutlined/>, label: <Link to="/jwt">JWT Parser</Link>}
               ]
