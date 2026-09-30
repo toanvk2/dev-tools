@@ -41,7 +41,7 @@ const HashGenerator: React.FC = () => {
   const hashTypes = ['MD5', 'SHA1', 'SHA256', 'SHA512'];
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <Row gutter={24} style={{ flex: 1 }}>
         <Col span={10} style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center' }}>

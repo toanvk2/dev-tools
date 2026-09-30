@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Row, Col, Typography, Input, Select, Segmented, Button, Card, Space, Drawer, List } from 'antd';
+import { Row, Col, Typography, Input, Select, Segmented, Button, Space, Drawer, List } from 'antd';
 import { DownloadOutlined, QrcodeOutlined, BarcodeOutlined, HistoryOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
@@ -7,6 +7,7 @@ import Barcode from 'react-barcode';
 import { useCacheState } from '../hooks/useCacheState';
 import { APP_CONFIG } from '../config';
 import { useAppStore } from '../store/useAppStore';
+import ToolCard from '../components/ToolCard';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -74,7 +75,7 @@ const CodeGenerator: React.FC = () => {
   // actually react-barcode renders invalid text as an empty SVG with an error class sometimes.
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
         <Segmented
           options={[
@@ -120,8 +121,8 @@ const CodeGenerator: React.FC = () => {
       </div>
 
       <Row gutter={24} style={{ flex: 1, margin: 0 }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
-          <Card 
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <ToolCard 
             title={
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Nội dung (Input Data)</span>
@@ -133,11 +134,7 @@ const CodeGenerator: React.FC = () => {
                 />
               </div>
             }
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' }, 
-              body: { flex: 1, padding: 0, display: 'flex' } 
-            }}
+            noPadding={true}
           >
             <TextArea
               style={{ 
@@ -154,11 +151,11 @@ const CodeGenerator: React.FC = () => {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Nhập nội dung để tạo mã..."
             />
-          </Card>
+          </ToolCard>
         </Col>
         
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
-          <Card 
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+          <ToolCard 
             title={
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Kết quả (Output)</span>
@@ -167,18 +164,7 @@ const CodeGenerator: React.FC = () => {
                 </Button>
               </div>
             }
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' }, 
-              body: { 
-                flex: 1, 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center',
-                background: isDark ? '#141414' : '#f0f2f5',
-                overflow: 'auto'
-              } 
-            }}
+            noPadding={true} styles={{ body: { justifyContent: "center", alignItems: "center", background: isDark ? "#141414" : "#f0f2f5" } }}
           >
             {input ? (
               <div 
@@ -212,7 +198,7 @@ const CodeGenerator: React.FC = () => {
             ) : (
               <Text type="secondary">Vui lòng nhập nội dung để tạo mã</Text>
             )}
-          </Card>
+          </ToolCard>
         </Col>
       </Row>
 

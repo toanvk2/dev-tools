@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Select, Segmented } from 'antd';
-import Editor from '@monaco-editor/react';
+import { Row, Col, Typography, Select, Segmented, } from 'antd';
+import CodeEditor from '../components/CodeEditor';
+import ToolCard from '../components/ToolCard';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
 import { Base64 } from 'js-base64';
@@ -63,7 +64,7 @@ const TextEncoder: React.FC = () => {
   const [error, setError] = useState<string>('');
 
   const appTheme = useAppStore(state => state.theme);
-  const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
+  
 
   useEffect(() => {
     if (!input.trim()) {
@@ -82,7 +83,7 @@ const TextEncoder: React.FC = () => {
   }, [input, type, mode]);
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
         <Select
           value={type}
@@ -107,36 +108,39 @@ const TextEncoder: React.FC = () => {
       </div>
 
 
-      <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text strong>Input (Đầu vào)</Text>
-            {error && <Text type="danger" ellipsis={{ tooltip: error }} style={{ maxWidth: 250 }}>{error}</Text>}
-          </div>
-          <div style={{ flex: 1, border: '1px solid', borderColor: error ? '#ff4d4f' : (appTheme === 'dark' ? '#434343' : '#d9d9d9'), borderRadius: 6, overflow: 'hidden' }}>
-            <Editor
-              height="100%"
+      <Row gutter={24} style={{ flex: 1, minHeight: 0, margin: 0 }}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <ToolCard noPadding={true} 
+            title={
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text strong>Input (Đầu vào)</Text>
+                {error && <Text type="danger" ellipsis={{ tooltip: error }} style={{ maxWidth: 200, fontWeight: 'normal', fontSize: 12 }}>{error}</Text>}
+              </div>
+            }
+            style={{ flex: 1, display: 'flex', flexDirection: 'column', borderColor: error ? '#ff4d4f' : undefined }}
+            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' } }}
+          >
+            <CodeEditor
               defaultLanguage="text"
-              theme={editorTheme}
               value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
+              
             />
-          </div>
+          </ToolCard>
         </Col>
 
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center' }}>
-          </div>
-          <div style={{ flex: 1, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
-            <Editor
-              height="100%"
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+          <ToolCard noPadding={true} 
+            title={<Text strong>Output (Kết quả)</Text>}
+            
+            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: appTheme === 'dark' ? '#141414' : '#fafafa' } }}
+          >
+            <CodeEditor
               defaultLanguage="text"
-              theme={editorTheme}
               value={output}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200 }}
+              options={{ readOnly: true }}
             />
-          </div>
+          </ToolCard>
         </Col>
       </Row>
     </div>

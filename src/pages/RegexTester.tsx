@@ -1,11 +1,13 @@
 import React, { useMemo, useRef, useEffect } from 'react';
-import { Row, Col, Input, Typography, List, Tag, Collapse, Table } from 'antd';
-import Editor, { useMonaco } from '@monaco-editor/react';
+import { Row, Col, Input, Typography, List, Tag, Collapse, Table, } from 'antd';
+import { useMonaco } from '@monaco-editor/react';
+import CodeEditor from '../components/CodeEditor';
+import ToolCard from '../components/ToolCard';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
 import { APP_CONFIG } from '../config';
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 const cheatSheetData = [
   { key: '1', token: '[abc]', desc: 'A single character of: a, b, or c' },
@@ -125,27 +127,19 @@ const RegexTester: React.FC = () => {
     highlightMatches();
   }, [pattern, flags, testString, monaco]);
 
-  const panelStyle = {
-    background: isDark ? '#141414' : '#fff',
-    border: `1px solid ${isDark ? '#303030' : '#f0f0f0'}`,
-    borderRadius: 8,
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column' as const
-  };
-
+  
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <style>{`
         .regex-match-1 { background-color: rgba(24, 144, 255, 0.4); border-radius: 2px; }
         .regex-match-2 { background-color: rgba(82, 196, 26, 0.4); border-radius: 2px; }
       `}</style>
 
       <Row gutter={24} style={{ flex: 1, margin: 0 }}>
-        <Col span={14} style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingLeft: 0 }}>
+        <Col span={14} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 16, paddingLeft: 0 }}>
           
-          <div style={{ ...panelStyle, padding: 16 }}>
-            <Title level={5} style={{ marginTop: 0 }}>Regular Expression</Title>
+          <ToolCard noPadding={false} title={<Text strong>Regular Expression</Text>} styles={{ body: { padding: 16 } }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', background: isDark ? '#1f1f1f' : '#f9f9f9', border: `1px solid ${isDark ? '#434343' : '#d9d9d9'}`, borderRadius: 6, padding: '4px 12px' }}>
               <span style={{ color: '#8c8c8c', fontSize: 18, marginRight: 8, fontWeight: 'bold' }}>/</span>
               <Input 
@@ -165,28 +159,21 @@ const RegexTester: React.FC = () => {
               />
             </div>
             {error && <Text type="danger" style={{ marginTop: 8 }}>{error}</Text>}
-          </div>
+          </ToolCard>
 
-          <div style={{ ...panelStyle, flex: 1 }}>
-            <div style={{ padding: '16px 16px 0 16px' }}>
-              <Title level={5} style={{ margin: 0 }}>Test String</Title>
-            </div>
-            <div style={{ flex: 1, padding: '16px 0' }}>
-              <Editor
-                height="100%"
-                language="plaintext"
-                theme={isDark ? 'vs-dark' : 'vs'}
-                value={testString}
-                onChange={(val) => setTestString(val || '')}
-                onMount={handleEditorDidMount}
-                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 15, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, lineNumbers: 'off', scrollBeyondLastLine: false, padding: { top: 16 } }}
-              />
-            </div>
-          </div>
+          <ToolCard noPadding={false} title={<Text strong>Test String</Text>} style={{ flex: 1 }} styles={{ body: { padding: '16px 0' } }}
+          >
+            <CodeEditor language="plaintext"
+              value={testString}
+              onChange={(val) => setTestString(val || '')}
+              onMount={handleEditorDidMount}
+              options={{ lineNumbers: 'off' }}
+            />
+          </ToolCard>
 
         </Col>
 
-        <Col span={10} style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingRight: 0 }}>
+        <Col span={10} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 16, paddingRight: 0 }}>
           
           <Collapse 
             defaultActiveKey={['match-info']} 

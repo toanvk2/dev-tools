@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Typography, Checkbox, Segmented } from 'antd';
-import Editor from '@monaco-editor/react';
+import CodeEditor from '../components/CodeEditor';
+import ToolCard from '../components/ToolCard';
 import ReactJsonRaw from 'react-json-view';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
@@ -18,8 +19,7 @@ const JsonFormatter: React.FC = () => {
   const [error, setError] = useState<string>('');
   
   const appTheme = useAppStore(state => state.theme);
-  const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
-
+  
   useEffect(() => {
     if (!input.trim()) {
       setParsedData(null);
@@ -45,53 +45,56 @@ const JsonFormatter: React.FC = () => {
   }, [input, useJsEval]);
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ marginBottom: 16, display: 'flex' }}>
-        <Checkbox 
-          checked={useJsEval} 
-          onChange={(e) => setUseJsEval(e.target.checked)}
-        >
-          JS Eval Mode (Cho phép Parse JS Object)
-        </Checkbox>
-      </div>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       
-      <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* Header left */}
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text strong>Input (Raw String)</Text>
-            {error && <Text type="danger" style={{ maxWidth: 300 }} ellipsis={{ tooltip: error }}>{error}</Text>}
-          </div>
-          {/* Editor left */}
-          <div style={{ flex: 1, border: '1px solid', borderColor: error ? '#ff4d4f' : (appTheme === 'dark' ? '#434343' : '#d9d9d9'), borderRadius: 6, overflow: 'hidden' }}>
-            <Editor
-              height="100%"
-              defaultLanguage={useJsEval ? "javascript" : "json"}
-              theme={editorTheme}
-              value={input}
+      
+      <Row gutter={24} style={{ flex: 1, minHeight: 0, margin: 0 }}>
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <ToolCard 
+            title={
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <Text strong>Input (Raw String)</Text>
+                  <Checkbox checked={useJsEval} onChange={(e) => setUseJsEval(e.target.checked)}>
+                    JS Eval Mode
+                  </Checkbox>
+                </div>
+                {error && <Text type="danger" style={{ maxWidth: 200, fontWeight: 'normal', fontSize: 12 }} ellipsis={{ tooltip: error }}>{error}</Text>}
+              </div>
+            }
+            style={{ borderColor: error ? '#ff4d4f' : undefined }}
+            
+          >
+            <CodeEditor defaultLanguage={useJsEval ? "javascript" : "json"} value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, formatOnPaste: true, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
+              options={{ formatOnPaste: true }}
             />
-          </div>
+          </ToolCard>
         </Col>
         
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* Header right */}
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text strong>Output</Text>
-            <Segmented
-              options={[
-                { label: 'Tree View', value: 'tree' },
-                { label: 'Raw Format', value: 'raw' }
-              ]}
-              value={viewMode}
-              onChange={(val) => setViewMode(val as 'tree' | 'raw')}
-            />
-          </div>
-          {/* Viewer right */}
-          <div style={{ flex: 1, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden', background: appTheme === 'dark' ? '#1e1e1e' : '#fff' }}>
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+          <ToolCard 
+            title={
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text strong>Output</Text>
+                <Segmented
+                  options={[
+                    { label: 'Tree View', value: 'tree' },
+                    { label: 'Raw Format', value: 'raw' }
+                  ]}
+                  value={viewMode}
+                  onChange={(val) => setViewMode(val as 'tree' | 'raw')}
+                  size="small"
+                />
+              </div>
+            }
+            
+            styles={{ body: { background: appTheme === 'dark' ? '#1e1e1e' : '#fff' } }}
+          >
             {viewMode === 'tree' ? (
-              <div style={{ height: '100%', overflow: 'auto', padding: 16 }}>
+              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflow: 'auto', padding: 16 }}>
+
                 {parsedData !== null ? (
                   <ReactJson 
                     src={parsedData} 
@@ -103,21 +106,18 @@ const JsonFormatter: React.FC = () => {
                     style={{ backgroundColor: 'transparent' }}
                   />
                 ) : (
-                  <Text type="secondary">Chưa có dữ liệu hợp lệ</Text>
+                  <Text type="secondary" style={{ padding: 16 }}>Chưa có dữ liệu hợp lệ</Text>
                 )}
+                              </div>
               </div>
             ) : (
-              <div style={{ height: '100%' }}>
-                <Editor
-                  height="100%"
-                  defaultLanguage="json"
-                  theme={editorTheme}
-                  value={outputRaw}
-                  options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200 }}
+              <div style={{ flex: 1, display: 'flex' }}>
+                <CodeEditor defaultLanguage="json" value={outputRaw}
+                  options={{ readOnly: true }}
                 />
               </div>
             )}
-          </div>
+          </ToolCard>
         </Col>
       </Row>
     </div>

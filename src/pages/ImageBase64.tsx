@@ -93,7 +93,7 @@ const ImageBase64: React.FC = () => {
   }, [base64Input]);
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
         <Segmented
           options={[
@@ -119,7 +119,7 @@ const ImageBase64: React.FC = () => {
           <Card 
             title={mode === 'img2base64' ? 'Tải ảnh lên' : 'Nhập chuỗi Base64'}
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: mode === 'img2base64' ? 16 : 0, display: 'flex' } }}
+            styles={{ body: { flex: 1, padding: mode === 'img2base64' ? 16 : 0, display: 'flex' } }}
           >
             {mode === 'img2base64' ? (
               <Dragger {...draggerProps} style={{ width: '100%', padding: 40, background: isDark ? '#141414' : '#fafafa' }}>
@@ -146,7 +146,7 @@ const ImageBase64: React.FC = () => {
           <Card 
             title={mode === 'img2base64' ? 'Chuỗi Base64 Output' : 'Ảnh Preview'}
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, display: 'flex' } }}
+            styles={{ body: { flex: 1, padding: 0, display: 'flex' } }}
           >
             {mode === 'img2base64' ? (
               <TextArea

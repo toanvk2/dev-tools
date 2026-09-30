@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Card, Row, Col, Typography, message } from 'antd';
+import { Row, Col, Typography, message } from 'antd';
 const { Text } = Typography;
-import Editor from '@monaco-editor/react';
+import CodeEditor from '../components/CodeEditor';
+import ToolCard from '../components/ToolCard';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
 
@@ -76,13 +77,12 @@ const HtmlViewer: React.FC = () => {
   };
   
   const appTheme = useAppStore(state => state.theme);
-  const isDark = appTheme === 'dark';
-
+  
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <Row gutter={24} style={{ flex: 1, margin: 0 }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
-          <Card 
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <ToolCard 
             title={
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>HTML Editor</span>
@@ -91,7 +91,6 @@ const HtmlViewer: React.FC = () => {
             } 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
             styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' }, 
               body: { flex: 1, padding: 0, position: 'relative', overflow: 'hidden' } 
             }}
           >
@@ -104,7 +103,7 @@ const HtmlViewer: React.FC = () => {
               {isDragging && (
                 <div style={{
                   position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+                  backgroundColor: appTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
                   border: '2px dashed #1890ff',
                   zIndex: 10,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -113,10 +112,7 @@ const HtmlViewer: React.FC = () => {
                   <Text strong style={{ fontSize: 18, color: '#1890ff' }}>Thả file vào đây...</Text>
                 </div>
               )}
-              <Editor
-                height="100%"
-                language="html"
-                theme={isDark ? 'vs-dark' : 'vs'}
+              <CodeEditor language="html"
                 value={htmlCode}
                 onChange={(value) => setHtmlCode(value || '')}
                 options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false },
@@ -128,15 +124,14 @@ const HtmlViewer: React.FC = () => {
                 }}
               />
             </div>
-          </Card>
+          </ToolCard>
         </Col>
 
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
-          <Card 
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+          <ToolCard 
             title="Live Preview" 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
             styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' },
               body: { flex: 1, padding: 0, backgroundColor: '#fff' } 
             }}
           >
@@ -151,7 +146,7 @@ const HtmlViewer: React.FC = () => {
               }}
               sandbox="allow-scripts"
             />
-          </Card>
+          </ToolCard>
         </Col>
       </Row>
     </div>

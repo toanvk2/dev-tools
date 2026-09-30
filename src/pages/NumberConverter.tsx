@@ -77,7 +77,7 @@ const NumberConverter: React.FC = () => {
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', maxWidth: 800, margin: '0 auto', width: '100%' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', maxWidth: 800, margin: '0 auto', width: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
         <Text type="danger">{error}</Text>
         <Button icon={<DeleteOutlined />} onClick={handleClear} disabled={!decVal}>Xóa nội dung</Button>

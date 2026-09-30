@@ -55,7 +55,7 @@ const TimestampConverter: React.FC = () => {
   };
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 24 }}>
       <Card style={{ textAlign: 'center', background: appTheme === 'dark' ? '#141414' : '#e6f7ff', borderColor: '#91d5ff' }}>
         <Space direction="vertical">
           <Text style={{ fontSize: 16 }}>The current Unix epoch time is</Text>
