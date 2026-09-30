@@ -1,7 +1,7 @@
 import React, { useMemo, Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme, ConfigProvider, Button, Typography } from 'antd';
-import { Html5Outlined, CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { Html5Outlined, CodeOutlined, SunOutlined, MoonOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined , FileImageOutlined } from '@ant-design/icons';
 const Home = lazy(() => import('./pages/Home'));
 const JsonFormatter = lazy(() => import('./pages/JsonFormatter'));
 const TextEncoder = lazy(() => import('./pages/TextEncoder'));
@@ -17,7 +17,9 @@ const HtmlViewer = lazy(() => import('./pages/HtmlViewer'));
 const RegexTester = lazy(() => import('./pages/RegexTester'));
 const YamlConverter = lazy(() => import('./pages/YamlConverter'));
 const UrlParser = lazy(() => import('./pages/UrlParser'));
-const UrlEncodeDecode = lazy(() => import('./pages/UrlEncodeDecode'));
+const ImageBase64 = lazy(() => import('./pages/ImageBase64'));
+const NumberConverter = lazy(() => import('./pages/NumberConverter'));
+const LoremIpsum = lazy(() => import('./pages/LoremIpsum'));
 const SvgViewer = lazy(() => import('./pages/SvgViewer'));
 const MarkdownPreview = lazy(() => import('./pages/MarkdownPreview'));
 import { FieldTimeOutlined, ThunderboltOutlined, DatabaseOutlined, SafetyOutlined, AppstoreAddOutlined, ToolOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined } from '@ant-design/icons';
@@ -40,11 +42,11 @@ const AppLayout: React.FC = () => {
   // Find the parent key for the active route
   const getActiveGroup = () => {
     const path = location.pathname;
-    if (['/json-formatter', '/diff', '/yaml', '/regex', '/markdown'].includes(path)) return 'data';
-    if (['/encoder', '/jwt', '/hash', '/url-parser', '/url-encode-decode'].includes(path)) return 'security';
-    if (['/random', '/generator'].includes(path)) return 'generators';
+    if (['/json-formatter', '/diff', '/yaml', '/regex', '/markdown', '/number-converter'].includes(path)) return 'data';
+    if (['/encoder', '/jwt', '/hash', '/url-parser'].includes(path)) return 'security';
+    if (['/random', '/generator', '/lorem-ipsum'].includes(path)) return 'generators';
     if (['/timestamp', '/cron'].includes(path)) return 'time';
-    if (['/color', '/html-viewer', '/svg-viewer'].includes(path)) return 'design';
+    if (['/color', '/html-viewer', '/svg-viewer', '/image-base64'].includes(path)) return 'design';
     return '';
   };
 
@@ -62,13 +64,15 @@ const AppLayout: React.FC = () => {
       case '/timestamp': return 'Epoch Timestamp Converter';
       case '/svg-viewer': return 'SVG / Vector Viewer';
       case '/color': return 'Color Picker / Converter';
+      case '/image-base64': return 'Base64 ↔ Image';
+      case '/number-converter': return 'Number Base Converter';
+      case '/lorem-ipsum': return 'Lorem Ipsum Generator';
       case '/cron': return 'Cron Job Parser';
       case '/random': return 'Random Generator (UUID/Password)';
       case '/html-viewer': return 'HTML Viewer';
       case '/yaml': return 'JSON ↔ YAML Converter';
       case '/regex': return 'Regex Tester';
       case '/url-parser': return 'URL Parser';
-      case '/url-encode-decode': return 'URL Encode / Decode';
       case '/markdown': return 'Markdown Preview';
       default: return 'DevTools';
     }
@@ -88,11 +92,11 @@ const AppLayout: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: isDark ? '#fff' : '#000',
-              fontWeight: 'bold',
-              transition: 'all 0.3s',
-              cursor: 'pointer'
-            }}
-          >
+                    fontWeight: 'bold',
+                    transition: 'all 0.3s',
+                    cursor: 'pointer'
+                }}
+            >
             DEV TOOLS
           </div>
         </Link>
@@ -112,6 +116,11 @@ const AppLayout: React.FC = () => {
                       label: <Link to="/json-formatter">JSON Formatter</Link>
                   },
                   {key: '/yaml', icon: <RetweetOutlined/>, label: <Link to="/yaml">JSON ↔ YAML</Link>},
+                  {
+                      key: '/number-converter',
+                      icon: <DatabaseOutlined/>,
+                      label: <Link to="/number-converter">Number Converter</Link>
+                  },
                   {key: '/regex', icon: <CodeOutlined/>, label: <Link to="/regex">Regex Tester</Link>},
                   {key: '/diff', icon: <DiffOutlined/>, label: <Link to="/diff">Diff Checker</Link>},
                   {key: '/markdown', icon: <FileTextOutlined/>, label: <Link to="/markdown">Markdown Preview</Link>}
@@ -124,8 +133,7 @@ const AppLayout: React.FC = () => {
               label: 'Crypto & Security',
               children: [
                   {key: '/url-parser', icon: <LinkOutlined/>, label: <Link to="/url-parser">URL Parser</Link>},
-                  {key: '/url-encode-decode', icon: <SwapOutlined/>, label: <Link to="/url-encode-decode">URL Encode/Decode</Link>},
-                  {key: '/encoder', icon: <SwapOutlined/>, label: <Link to="/encoder">Text Encoders</Link>},
+                  {key: '/encoder', icon: <SwapOutlined/>, label: <Link to="/encoder">Encoder/Decoder</Link>},
                   {key: '/hash', icon: <KeyOutlined/>, label: <Link to="/hash">Hash Generator</Link>},
                   {key: '/jwt', icon: <SecurityScanOutlined/>, label: <Link to="/jwt">JWT Parser</Link>}
               ]
@@ -136,7 +144,8 @@ const AppLayout: React.FC = () => {
               label: 'Generators',
               children: [
                   {key: '/generator', icon: <BarcodeOutlined/>, label: <Link to="/generator">QR & Barcode</Link>},
-                  {key: '/random', icon: <ThunderboltOutlined/>, label: <Link to="/random">Random Data</Link>}
+                  {key: '/random', icon: <ThunderboltOutlined/>, label: <Link to="/random">Random Data</Link>},
+                  {key: '/lorem-ipsum', icon: <FileTextOutlined/>, label: <Link to="/lorem-ipsum">Lorem Ipsum</Link>}
               ]
             },
             {
@@ -155,6 +164,7 @@ const AppLayout: React.FC = () => {
               children: [
                   {key: '/html-viewer', icon: <Html5Outlined/>, label: <Link to="/html-viewer">HTML Viewer</Link>},
                   { key: '/svg-viewer', icon: <PictureOutlined />, label: <Link to="/svg-viewer">SVG Viewer</Link> },
+                  { key: '/image-base64', icon: <FileImageOutlined />, label: <Link to="/image-base64">Base64 ↔ Image</Link> },
                   {key: '/color', label: <Link to="/color">Color Picker</Link>}
               ]
             }
@@ -172,16 +182,18 @@ const AppLayout: React.FC = () => {
           />
         </Header>
         <Content style={{ padding: 24, margin: 0, flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
-          
+
             <Suspense fallback={<div style={{ padding: 50, textAlign: 'center', fontSize: 16 }}>Đang tải công cụ... (Loading)</div>}>
               <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/html-viewer" element={<HtmlViewer />} />
               <Route path="/json-formatter" element={<JsonFormatter />} />
-<Route path="/yaml" element={<YamlConverter />} />
+              <Route path="/yaml" element={<YamlConverter/>}/>
               <Route path="/regex" element={<RegexTester />} />
               <Route path="/url-parser" element={<UrlParser />} />
-              <Route path="/url-encode-decode" element={<UrlEncodeDecode />} />
+              <Route path="/image-base64" element={<ImageBase64 />} />
+              <Route path="/number-converter" element={<NumberConverter />} />
+              <Route path="/lorem-ipsum" element={<LoremIpsum />} />
               <Route path="/markdown" element={<MarkdownPreview />} />
               <Route path="/encoder" element={<TextEncoder />} />
               <Route path="/jwt" element={<JwtParser />} />

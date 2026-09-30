@@ -13,17 +13,17 @@ const processData = (input: string, type: string, mode: 'encode' | 'decode') => 
     switch (type) {
       case 'base64':
         return mode === 'encode' ? Base64.encode(input) : Base64.decode(input);
-        
+
       case 'url':
         return mode === 'encode' ? encodeURIComponent(input) : decodeURIComponent(input);
-        
+
       case 'unicode':
         if (mode === 'encode') {
           return Array.from(input).map(c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0')).join('');
         } else {
           return input.replace(/\\u([0-9a-fA-F]{4})/g, (_, grp) => String.fromCharCode(parseInt(grp, 16)));
         }
-        
+
       case 'html':
         if (mode === 'encode') {
           return input.replace(/[\u00A0-\u9999<>\&"']/g, i => '&#' + i.charCodeAt(0) + ';');
@@ -31,7 +31,7 @@ const processData = (input: string, type: string, mode: 'encode' | 'decode') => 
           const doc = new DOMParser().parseFromString(input, "text/html");
           return doc.documentElement.textContent || '';
         }
-        
+
       case 'hex':
         if (mode === 'encode') {
           const utf8Str = unescape(encodeURIComponent(input));
@@ -45,7 +45,7 @@ const processData = (input: string, type: string, mode: 'encode' | 'decode') => 
           }
           return decodeURIComponent(escape(utf8Str));
         }
-        
+
       default:
         return input;
     }
@@ -58,10 +58,10 @@ const TextEncoder: React.FC = () => {
   const [input, setInput] = useCacheState<string>('encoder-input', '');
   const [type, setType] = useCacheState<string>('encoder-type', 'base64');
   const [mode, setMode] = useCacheState<'encode' | 'decode'>('encoder-mode', 'encode');
-  
+
   const [output, setOutput] = useState<string>('');
   const [error, setError] = useState<string>('');
-  
+
   const appTheme = useAppStore(state => state.theme);
   const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
 
@@ -84,13 +84,13 @@ const TextEncoder: React.FC = () => {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
-        <Select 
-          value={type} 
-          onChange={(val) => setType(val)} 
+        <Select
+          value={type}
+          onChange={(val) => setType(val)}
           style={{ width: 160 }}
           options={[
             { label: 'Base64', value: 'base64' },
-            { label: 'URL Format', value: 'url' },
+            { label: 'URL', value: 'url' },
             { label: 'Unicode (\\uXXXX)', value: 'unicode' },
             { label: 'HTML Entity', value: 'html' },
             { label: 'Hex String', value: 'hex' },
@@ -106,7 +106,7 @@ const TextEncoder: React.FC = () => {
         />
       </div>
 
-      
+
       <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
         <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -120,11 +120,11 @@ const TextEncoder: React.FC = () => {
               theme={editorTheme}
               value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </div>
         </Col>
-        
+
         <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center' }}>
           </div>
@@ -134,7 +134,7 @@ const TextEncoder: React.FC = () => {
               defaultLanguage="text"
               theme={editorTheme}
               value={output}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'on' }}
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200 }}
             />
           </div>
         </Col>

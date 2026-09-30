@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Row, Col, Card } from 'antd';
-import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined, PictureOutlined } from '@ant-design/icons';
+import { Html5Outlined, CodeOutlined, SwapOutlined, SecurityScanOutlined, BarcodeOutlined, DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, FieldTimeOutlined, ThunderboltOutlined, RetweetOutlined, FileTextOutlined, LinkOutlined, PictureOutlined, FileImageOutlined, DatabaseOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
@@ -102,6 +102,24 @@ const Home: React.FC = () => {
       description: 'Bảng chọn màu trực quan và chuyển đổi qua lại giữa các chuẩn HEX, RGB, HSL.',
       icon: <BgColorsOutlined style={{ fontSize: 40, color: '#fadb14' }} />,
       link: '/color'
+    },
+    {
+      title: 'Base64 ↔ Image',
+      description: 'Chuyển đổi hình ảnh sang chuỗi Base64 và ngược lại',
+      icon: <FileImageOutlined style={{ fontSize: 40, color: '#eb2f96' }} />,
+      link: '/image-base64'
+    },
+    {
+      title: 'Number Converter',
+      description: 'Chuyển đổi các hệ cơ số (Thập phân, Hex, Nhị phân, Bát phân)',
+      icon: <DatabaseOutlined style={{ fontSize: 40, color: '#fa8c16' }} />,
+      link: '/number-converter'
+    },
+    {
+      title: 'Lorem Ipsum Generator',
+      description: 'Tạo nhanh các đoạn văn bản ngẫu nhiên để thiết kế layout',
+      icon: <FileTextOutlined style={{ fontSize: 40, color: '#52c41a' }} />,
+      link: '/lorem-ipsum'
     }
   ];
 

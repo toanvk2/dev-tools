@@ -45,7 +45,7 @@ const DiffChecker: React.FC = () => {
                 theme={editorTheme}
                 value={original}
                 onChange={(val) => setOriginal(val || '')}
-                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, scrollBeyondLastLine: false, padding: { top: 16 } }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
               />
             </Col>
             <Col span={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -58,7 +58,7 @@ const DiffChecker: React.FC = () => {
                 theme={editorTheme}
                 value={modified}
                 onChange={(val) => setModified(val || '')}
-                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, scrollBeyondLastLine: false, padding: { top: 16 } }}
+                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
               />
             </Col>
           </Row>
@@ -69,7 +69,7 @@ const DiffChecker: React.FC = () => {
             original={original}
             modified={modified}
             options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false },
-              renderSideBySide: true,
+              wordWrap: 'wordWrapColumn', wordWrapColumn: 200, renderSideBySide: true,
               readOnly: true
             }}
           />
