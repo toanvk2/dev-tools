@@ -1,10 +1,11 @@
 import React from 'react';
-import { Card, Row, Col, Typography, message, Button, Space } from 'antd';
+import { Row, Col, Typography, message, Button, Space } from 'antd';
 import { FormatPainterOutlined } from '@ant-design/icons';
-import Editor from '@monaco-editor/react';
+import CodeEditor from '../components/CodeEditor';
+import ToolCard from '../components/ToolCard';
 import YAML from 'yaml';
 import { useCacheState } from '../hooks/useCacheState';
-import { useAppStore } from '../store/useAppStore';
+
 
 const { Text } = Typography;
 
@@ -16,8 +17,8 @@ const YamlConverter: React.FC = () => {
   const [yamlCode, setYamlCode] = useCacheState<string>('yaml-conv-yaml', defaultYaml);
   const [_lastEdited, setLastEdited] = React.useState<'json' | 'yaml'>('json');
   
-  const appTheme = useAppStore(state => state.theme);
-  const isDark = appTheme === 'dark';
+  
+  
 
   const convertJsonToYaml = (code: string) => {
     try {
@@ -69,37 +70,33 @@ const YamlConverter: React.FC = () => {
     <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <Row gutter={24} style={{ flex: 1, margin: 0 }}>
         <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
-          <Card 
+          <ToolCard noPadding={true} 
             title={<Space><Text strong>JSON</Text><Button type="text" size="small" icon={<FormatPainterOutlined />} onClick={formatJson} title="Format JSON" /></Space>} 
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ body: { flex: 1, padding: 0, overflow: 'hidden' } }}
+             
+            
           >
-            <Editor
-              height="100%"
+            <CodeEditor
               language="json"
-              theme={isDark ? 'vs-dark' : 'vs'}
               value={jsonCode}
               onChange={handleJsonChange}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
+              
             />
-          </Card>
+          </ToolCard>
         </Col>
 
         <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
-          <Card 
+          <ToolCard noPadding={true} 
             title="YAML" 
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ body: { flex: 1, padding: 0, overflow: 'hidden' } }}
+             
+            
           >
-            <Editor
-              height="100%"
+            <CodeEditor
               language="yaml"
-              theme={isDark ? 'vs-dark' : 'vs'}
               value={yamlCode}
               onChange={handleYamlChange}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
+              
             />
-          </Card>
+          </ToolCard>
         </Col>
       </Row>
     </div>

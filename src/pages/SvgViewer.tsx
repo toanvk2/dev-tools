@@ -1,9 +1,10 @@
 import React, { useMemo, useState, useRef } from 'react';
-import { Card, Row, Col, Typography, message, Segmented, Button, Space, Tooltip } from 'antd';
+import { Row, Col, Typography, message, Segmented, Button, Space, Tooltip } from 'antd';
+import ToolCard from '../components/ToolCard';
 import { ZoomInOutlined, ZoomOutOutlined, UndoOutlined } from '@ant-design/icons';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import type { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
-import Editor from '@monaco-editor/react';
+import CodeEditor from '../components/CodeEditor';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
 
@@ -207,8 +208,8 @@ const SvgViewer: React.FC = () => {
   return (
     <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <Row gutter={24} style={{ flex: 1, margin: 0 }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
-          <Card 
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <ToolCard 
             title={
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>SVG / Android XML</span>
@@ -236,12 +237,12 @@ const SvgViewer: React.FC = () => {
                   <Text strong style={{ fontSize: 18, color: '#1890ff' }}>Thả file vào đây...</Text>
                 </div>
               )}
-              <Editor
-                height="100%"
+              <CodeEditor
+                
                 language="xml"
-                theme={isDark ? 'vs-dark' : 'vs'}
+                
                 value={svgInput}
-                onChange={(value, event) => {
+                onChange={(value, event: any) => {
                   const oldLength = svgInput.length;
                   setSvgInput(value || '');
                   
@@ -258,14 +259,14 @@ const SvgViewer: React.FC = () => {
                   }
                 }}
                 onMount={handleEditorDidMount}
-                options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
+                
               />
             </div>
-          </Card>
+          </ToolCard>
         </Col>
 
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
-          <Card 
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+          <ToolCard 
             title={
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Live Preview</span>
@@ -326,7 +327,7 @@ const SvgViewer: React.FC = () => {
               </TransformWrapper>
 
             </div>
-          </Card>
+          </ToolCard>
         </Col>
       </Row>
     </div>

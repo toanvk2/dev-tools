@@ -1,6 +1,8 @@
 import React, { useMemo, useRef, useEffect } from 'react';
-import { Row, Col, Input, Typography, List, Tag, Collapse, Table, Card } from 'antd';
-import Editor, { useMonaco } from '@monaco-editor/react';
+import { Row, Col, Input, Typography, List, Tag, Collapse, Table, } from 'antd';
+import { useMonaco } from '@monaco-editor/react';
+import CodeEditor from '../components/CodeEditor';
+import ToolCard from '../components/ToolCard';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
 import { APP_CONFIG } from '../config';
@@ -134,12 +136,9 @@ const RegexTester: React.FC = () => {
       `}</style>
 
       <Row gutter={24} style={{ flex: 1, margin: 0 }}>
-        <Col span={14} style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingLeft: 0 }}>
+        <Col span={14} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 16, paddingLeft: 0 }}>
           
-          <Card
-            title={<Text strong>Regular Expression</Text>}
-            style={{ display: 'flex', flexDirection: 'column' }}
-            styles={{ body: { padding: 16 } }}
+          <ToolCard noPadding={false} title={<Text strong>Regular Expression</Text>} styles={{ body: { padding: 16 } }}
           >
             <div style={{ display: 'flex', alignItems: 'center', background: isDark ? '#1f1f1f' : '#f9f9f9', border: `1px solid ${isDark ? '#434343' : '#d9d9d9'}`, borderRadius: 6, padding: '4px 12px' }}>
               <span style={{ color: '#8c8c8c', fontSize: 18, marginRight: 8, fontWeight: 'bold' }}>/</span>
@@ -160,27 +159,21 @@ const RegexTester: React.FC = () => {
               />
             </div>
             {error && <Text type="danger" style={{ marginTop: 8 }}>{error}</Text>}
-          </Card>
+          </ToolCard>
 
-          <Card
-            title={<Text strong>Test String</Text>}
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
-            styles={{ body: { flex: 1, padding: '16px 0', overflow: 'hidden' } }}
+          <ToolCard noPadding={false} title={<Text strong>Test String</Text>} style={{ flex: 1 }} styles={{ body: { padding: '16px 0' } }}
           >
-            <Editor
-              height="100%"
-              language="plaintext"
-              theme={isDark ? 'vs-dark' : 'vs'}
+            <CodeEditor language="plaintext"
               value={testString}
               onChange={(val) => setTestString(val || '')}
               onMount={handleEditorDidMount}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 15, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, lineNumbers: 'off', scrollBeyondLastLine: false, padding: { top: 16 } }}
+              options={{ lineNumbers: 'off' }}
             />
-          </Card>
+          </ToolCard>
 
         </Col>
 
-        <Col span={10} style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingRight: 0 }}>
+        <Col span={10} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 16, paddingRight: 0 }}>
           
           <Collapse 
             defaultActiveKey={['match-info']} 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Typography, Input, Tag } from 'antd';
-import Editor from '@monaco-editor/react';
+import CodeEditor from '../components/CodeEditor';
 import { useAppStore } from '../store/useAppStore';
 import { useCacheState } from '../hooks/useCacheState';
 import { Base64 } from 'js-base64';
@@ -11,7 +11,7 @@ const { TextArea } = Input;
 const JwtParser: React.FC = () => {
   const [jwt, setJwt] = useCacheState<string>('jwt-input', '');
   const appTheme = useAppStore(state => state.theme);
-  const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
+  
 
   let header = '';
   let payload = '';
@@ -53,10 +53,10 @@ const JwtParser: React.FC = () => {
               Header <Tag color="magenta" style={{ marginLeft: 8 }}>Algorithm & Token Type</Tag>
             </Text>
             <div style={{ flex: 1, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
-              <Editor
-                height="100%"
+              <CodeEditor
+                
                 defaultLanguage="json"
-                theme={editorTheme}
+                
                 value={header || '{\n\n}'}
                 options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, lineNumbers: 'off' }}
               />
@@ -68,10 +68,10 @@ const JwtParser: React.FC = () => {
               Payload <Tag color="purple" style={{ marginLeft: 8 }}>Data</Tag>
             </Text>
             <div style={{ flex: 1, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
-              <Editor
-                height="100%"
+              <CodeEditor
+                
                 defaultLanguage="json"
-                theme={editorTheme}
+                
                 value={payload || '{\n\n}'}
                 options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, lineNumbers: 'off' }}
               />
