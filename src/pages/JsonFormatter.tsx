@@ -92,7 +92,9 @@ const JsonFormatter: React.FC = () => {
             styles={{ body: { background: appTheme === 'dark' ? '#1e1e1e' : '#fff' } }}
           >
             {viewMode === 'tree' ? (
-              <div style={{ flex: 1, minHeight: 0, overflow: 'auto', padding: 16 }}>
+              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflow: 'auto', padding: 16 }}>
+
                 {parsedData !== null ? (
                   <ReactJson 
                     src={parsedData} 
@@ -106,6 +108,7 @@ const JsonFormatter: React.FC = () => {
                 ) : (
                   <Text type="secondary" style={{ padding: 16 }}>Chưa có dữ liệu hợp lệ</Text>
                 )}
+                              </div>
               </div>
             ) : (
               <div style={{ flex: 1, display: 'flex' }}>
