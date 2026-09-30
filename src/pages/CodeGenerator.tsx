@@ -74,7 +74,7 @@ const CodeGenerator: React.FC = () => {
   // actually react-barcode renders invalid text as an empty SVG with an error class sometimes.
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
         <Segmented
           options={[

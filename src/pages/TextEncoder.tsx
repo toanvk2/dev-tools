@@ -82,7 +82,7 @@ const TextEncoder: React.FC = () => {
   }, [input, type, mode]);
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
         <Select
           value={type}
@@ -107,7 +107,7 @@ const TextEncoder: React.FC = () => {
       </div>
 
 
-      <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
+      <Row gutter={16} style={{ flex: 1, minHeight: 0 }}>
         <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Text strong>Input (Đầu vào)</Text>

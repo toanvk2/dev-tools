@@ -53,7 +53,7 @@ const ColorConverter: React.FC = () => {
   const hwbStr = colord(color).toHwbString();
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <Row gutter={24} style={{ flex: 1, justifyContent: 'center' }}>
         <Col span={20} style={{ display: 'flex', flexDirection: 'column' }}>
           <Card 

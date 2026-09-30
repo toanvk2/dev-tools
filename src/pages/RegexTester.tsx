@@ -135,7 +135,7 @@ const RegexTester: React.FC = () => {
   };
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <style>{`
         .regex-match-1 { background-color: rgba(24, 144, 255, 0.4); border-radius: 2px; }
         .regex-match-2 { background-color: rgba(82, 196, 26, 0.4); border-radius: 2px; }

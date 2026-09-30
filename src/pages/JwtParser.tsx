@@ -31,12 +31,12 @@ const JwtParser: React.FC = () => {
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ marginBottom: 16 }}>
         <Text type="secondary">Phân tích cú pháp và giải mã JSON Web Token cục bộ, không gửi dữ liệu ra ngoài.</Text>
       </div>
 
-      <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
+      <Row gutter={16} style={{ flex: 1, minHeight: 0 }}>
         <Col span={10} style={{ display: 'flex', flexDirection: 'column' }}>
           <Text strong style={{ marginBottom: 8 }}>Encoded JWT</Text>
           <TextArea

@@ -28,7 +28,7 @@ import { DiffOutlined, KeyOutlined, ClockCircleOutlined, BgColorsOutlined, Pictu
 
 import { useAppStore } from './store/useAppStore';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
 
 const AppLayout: React.FC = () => {
@@ -81,6 +81,7 @@ const AppLayout: React.FC = () => {
   return (
     <Layout style={{ height: '100vh', overflow: 'hidden' }}>
       <Sider breakpoint="lg" collapsedWidth="0" theme={appTheme} style={{ overflowY: 'auto', height: '100vh', position: 'sticky', top: 0, left: 0 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
         <Link to="/" style={{ textDecoration: 'none' }}>
             <div
                 style={{
@@ -169,7 +170,12 @@ const AppLayout: React.FC = () => {
               ]
             }
           ]}
+          style={{ flex: 1 }}
         />
+        <div style={{ padding: '16px 0', textAlign: 'center', fontSize: 12, color: isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)' }}>
+          DevTools ©{new Date().getFullYear()}
+        </div>
+        </div>
       </Sider>
       <Layout style={{ background: isDark ? '#000000' : '#f5f5f5', display: 'flex', flexDirection: 'column' }}>
         <Header style={{ padding: '0 24px', background: isDark ? '#141414' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.3s' }}>
@@ -210,9 +216,7 @@ const AppLayout: React.FC = () => {
             </Routes>
             </Suspense>
         </Content>
-        <Footer style={{ textAlign: 'center', transition: 'all 0.3s', background: 'transparent' }}>
-          DevTools ©{new Date().getFullYear()} Created with React & Ant Design
-        </Footer>
+
       </Layout>
     </Layout>
   );

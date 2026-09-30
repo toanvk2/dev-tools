@@ -15,7 +15,7 @@ const DiffChecker: React.FC = () => {
   const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Segmented
           options={[
@@ -32,7 +32,7 @@ const DiffChecker: React.FC = () => {
         )}
       </div>
 
-      <div style={{ flex: 1, minHeight: '65vh', border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
+      <div style={{ flex: 1, minHeight: 0, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
         {viewMode === 'edit' ? (
           <Row style={{ height: '100%' }}>
             <Col span={12} style={{ height: '100%', display: 'flex', flexDirection: 'column', borderRight: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9' }}>

@@ -45,21 +45,19 @@ const JsonFormatter: React.FC = () => {
   }, [input, useJsEval]);
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ marginBottom: 16, display: 'flex' }}>
-        <Checkbox 
-          checked={useJsEval} 
-          onChange={(e) => setUseJsEval(e.target.checked)}
-        >
-          JS Eval Mode (Cho phép Parse JS Object)
-        </Checkbox>
-      </div>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       
-      <Row gutter={16} style={{ flex: 1, minHeight: '65vh' }}>
+      
+      <Row gutter={16} style={{ flex: 1, minHeight: 0, margin: 0 }}>
         <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
           {/* Header left */}
           <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text strong>Input (Raw String)</Text>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <Text strong>Input (Raw String)</Text>
+              <Checkbox checked={useJsEval} onChange={(e) => setUseJsEval(e.target.checked)}>
+                JS Eval Mode (Parse JS Object)
+              </Checkbox>
+            </div>
             {error && <Text type="danger" style={{ maxWidth: 300 }} ellipsis={{ tooltip: error }}>{error}</Text>}
           </div>
           {/* Editor left */}
