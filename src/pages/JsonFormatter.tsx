@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Checkbox, Segmented, Card } from 'antd';
-import Editor from '@monaco-editor/react';
+import { Row, Col, Typography, Checkbox, Segmented } from 'antd';
+import CodeEditor from '../components/CodeEditor';
+import ToolCard from '../components/ToolCard';
 import ReactJsonRaw from 'react-json-view';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
@@ -18,8 +19,7 @@ const JsonFormatter: React.FC = () => {
   const [error, setError] = useState<string>('');
   
   const appTheme = useAppStore(state => state.theme);
-  const editorTheme = appTheme === 'dark' ? 'vs-dark' : 'light';
-
+  
   useEffect(() => {
     if (!input.trim()) {
       setParsedData(null);
@@ -50,7 +50,7 @@ const JsonFormatter: React.FC = () => {
       
       <Row gutter={24} style={{ flex: 1, minHeight: 0, margin: 0 }}>
         <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
-          <Card 
+          <ToolCard 
             title={
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -62,22 +62,18 @@ const JsonFormatter: React.FC = () => {
                 {error && <Text type="danger" style={{ maxWidth: 200, fontWeight: 'normal', fontSize: 12 }} ellipsis={{ tooltip: error }}>{error}</Text>}
               </div>
             }
-            style={{ flex: 1, display: 'flex', flexDirection: 'column', borderColor: error ? '#ff4d4f' : undefined }}
-            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' } }}
+            style={{ borderColor: error ? '#ff4d4f' : undefined }}
+            
           >
-            <Editor
-              height="100%"
-              defaultLanguage={useJsEval ? "javascript" : "json"}
-              theme={editorTheme}
-              value={input}
+            <CodeEditor defaultLanguage={useJsEval ? "javascript" : "json"} value={input}
               onChange={(val) => setInput(val || '')}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, formatOnPaste: true, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
+              options={{ formatOnPaste: true }}
             />
-          </Card>
+          </ToolCard>
         </Col>
         
         <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
-          <Card 
+          <ToolCard 
             title={
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Text strong>Output</Text>
@@ -92,8 +88,8 @@ const JsonFormatter: React.FC = () => {
                 />
               </div>
             }
-            style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
-            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: appTheme === 'dark' ? '#1e1e1e' : '#fff' } }}
+            
+            styles={{ body: { background: appTheme === 'dark' ? '#1e1e1e' : '#fff' } }}
           >
             {viewMode === 'tree' ? (
               <div style={{ flex: 1, overflow: 'auto', padding: 16 }}>
@@ -113,16 +109,12 @@ const JsonFormatter: React.FC = () => {
               </div>
             ) : (
               <div style={{ flex: 1, display: 'flex' }}>
-                <Editor
-                  height="100%"
-                  defaultLanguage="json"
-                  theme={editorTheme}
-                  value={outputRaw}
-                  options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200 }}
+                <CodeEditor defaultLanguage="json" value={outputRaw}
+                  options={{ readOnly: true }}
                 />
               </div>
             )}
-          </Card>
+          </ToolCard>
         </Col>
       </Row>
     </div>
