@@ -135,7 +135,6 @@ const CodeGenerator: React.FC = () => {
             }
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
             styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' }, 
               body: { flex: 1, padding: 0, display: 'flex' } 
             }}
           >
@@ -169,7 +168,6 @@ const CodeGenerator: React.FC = () => {
             }
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
             styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' }, 
               body: { 
                 flex: 1, 
                 display: 'flex', 

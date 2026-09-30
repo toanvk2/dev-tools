@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Checkbox, Segmented } from 'antd';
+import { Row, Col, Typography, Checkbox, Segmented, Card } from 'antd';
 import Editor from '@monaco-editor/react';
 import ReactJsonRaw from 'react-json-view';
 import { useCacheState } from '../hooks/useCacheState';
@@ -48,20 +48,23 @@ const JsonFormatter: React.FC = () => {
     <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
       
       
-      <Row gutter={16} style={{ flex: 1, minHeight: 0, margin: 0 }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* Header left */}
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <Text strong>Input (Raw String)</Text>
-              <Checkbox checked={useJsEval} onChange={(e) => setUseJsEval(e.target.checked)}>
-                JS Eval Mode (Parse JS Object)
-              </Checkbox>
-            </div>
-            {error && <Text type="danger" style={{ maxWidth: 300 }} ellipsis={{ tooltip: error }}>{error}</Text>}
-          </div>
-          {/* Editor left */}
-          <div style={{ flex: 1, border: '1px solid', borderColor: error ? '#ff4d4f' : (appTheme === 'dark' ? '#434343' : '#d9d9d9'), borderRadius: 6, overflow: 'hidden' }}>
+      <Row gutter={24} style={{ flex: 1, minHeight: 0, margin: 0 }}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <Card 
+            title={
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <Text strong>Input (Raw String)</Text>
+                  <Checkbox checked={useJsEval} onChange={(e) => setUseJsEval(e.target.checked)}>
+                    JS Eval Mode
+                  </Checkbox>
+                </div>
+                {error && <Text type="danger" style={{ maxWidth: 200, fontWeight: 'normal', fontSize: 12 }} ellipsis={{ tooltip: error }}>{error}</Text>}
+              </div>
+            }
+            style={{ flex: 1, display: 'flex', flexDirection: 'column', borderColor: error ? '#ff4d4f' : undefined }}
+            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' } }}
+          >
             <Editor
               height="100%"
               defaultLanguage={useJsEval ? "javascript" : "json"}
@@ -70,26 +73,30 @@ const JsonFormatter: React.FC = () => {
               onChange={(val) => setInput(val || '')}
               options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, formatOnPaste: true, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
-          </div>
+          </Card>
         </Col>
         
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* Header right */}
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text strong>Output</Text>
-            <Segmented
-              options={[
-                { label: 'Tree View', value: 'tree' },
-                { label: 'Raw Format', value: 'raw' }
-              ]}
-              value={viewMode}
-              onChange={(val) => setViewMode(val as 'tree' | 'raw')}
-            />
-          </div>
-          {/* Viewer right */}
-          <div style={{ flex: 1, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden', background: appTheme === 'dark' ? '#1e1e1e' : '#fff' }}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+          <Card 
+            title={
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text strong>Output</Text>
+                <Segmented
+                  options={[
+                    { label: 'Tree View', value: 'tree' },
+                    { label: 'Raw Format', value: 'raw' }
+                  ]}
+                  value={viewMode}
+                  onChange={(val) => setViewMode(val as 'tree' | 'raw')}
+                  size="small"
+                />
+              </div>
+            }
+            style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: appTheme === 'dark' ? '#1e1e1e' : '#fff' } }}
+          >
             {viewMode === 'tree' ? (
-              <div style={{ height: '100%', overflow: 'auto', padding: 16 }}>
+              <div style={{ flex: 1, overflow: 'auto', padding: 16 }}>
                 {parsedData !== null ? (
                   <ReactJson 
                     src={parsedData} 
@@ -101,11 +108,11 @@ const JsonFormatter: React.FC = () => {
                     style={{ backgroundColor: 'transparent' }}
                   />
                 ) : (
-                  <Text type="secondary">Chưa có dữ liệu hợp lệ</Text>
+                  <Text type="secondary" style={{ padding: 16 }}>Chưa có dữ liệu hợp lệ</Text>
                 )}
               </div>
             ) : (
-              <div style={{ height: '100%' }}>
+              <div style={{ flex: 1, display: 'flex' }}>
                 <Editor
                   height="100%"
                   defaultLanguage="json"
@@ -115,7 +122,7 @@ const JsonFormatter: React.FC = () => {
                 />
               </div>
             )}
-          </div>
+          </Card>
         </Col>
       </Row>
     </div>

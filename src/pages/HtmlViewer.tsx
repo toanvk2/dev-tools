@@ -91,7 +91,6 @@ const HtmlViewer: React.FC = () => {
             } 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
             styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' }, 
               body: { flex: 1, padding: 0, position: 'relative', overflow: 'hidden' } 
             }}
           >
@@ -136,7 +135,6 @@ const HtmlViewer: React.FC = () => {
             title="Live Preview" 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
             styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' },
               body: { flex: 1, padding: 0, backgroundColor: '#fff' } 
             }}
           >

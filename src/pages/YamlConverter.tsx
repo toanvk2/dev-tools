@@ -72,7 +72,7 @@ const YamlConverter: React.FC = () => {
           <Card 
             title={<Space><Text strong>JSON</Text><Button type="text" size="small" icon={<FormatPainterOutlined />} onClick={formatJson} title="Format JSON" /></Space>} 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, overflow: 'hidden' } }}
+            styles={{ body: { flex: 1, padding: 0, overflow: 'hidden' } }}
           >
             <Editor
               height="100%"
@@ -89,7 +89,7 @@ const YamlConverter: React.FC = () => {
           <Card 
             title="YAML" 
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, overflow: 'hidden' } }}
+            styles={{ body: { flex: 1, padding: 0, overflow: 'hidden' } }}
           >
             <Editor
               height="100%"

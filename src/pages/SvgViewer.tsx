@@ -216,7 +216,7 @@ const SvgViewer: React.FC = () => {
               </div>
             }
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, position: 'relative', overflow: 'hidden' } }}
+            styles={{ body: { flex: 1, padding: 0, position: 'relative', overflow: 'hidden' } }}
           >
             <div 
               onDragOver={handleDragOver} 
@@ -282,7 +282,7 @@ const SvgViewer: React.FC = () => {
               </div>
             }
             style={{ flex: 1, display: 'flex', flexDirection: 'column' }} 
-            styles={{ header: { borderBottom: '1px solid #f0f0f0' }, body: { flex: 1, padding: 0, overflow: 'hidden' } }}
+            styles={{ body: { flex: 1, padding: 0, overflow: 'hidden' } }}
           >
             <div 
               style={{ 

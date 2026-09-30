@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Select, Segmented } from 'antd';
+import { Row, Col, Typography, Select, Segmented, Card } from 'antd';
 import Editor from '@monaco-editor/react';
 import { useCacheState } from '../hooks/useCacheState';
 import { useAppStore } from '../store/useAppStore';
@@ -107,13 +107,18 @@ const TextEncoder: React.FC = () => {
       </div>
 
 
-      <Row gutter={16} style={{ flex: 1, minHeight: 0 }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text strong>Input (Đầu vào)</Text>
-            {error && <Text type="danger" ellipsis={{ tooltip: error }} style={{ maxWidth: 250 }}>{error}</Text>}
-          </div>
-          <div style={{ flex: 1, border: '1px solid', borderColor: error ? '#ff4d4f' : (appTheme === 'dark' ? '#434343' : '#d9d9d9'), borderRadius: 6, overflow: 'hidden' }}>
+      <Row gutter={24} style={{ flex: 1, minHeight: 0, margin: 0 }}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+          <Card 
+            title={
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text strong>Input (Đầu vào)</Text>
+                {error && <Text type="danger" ellipsis={{ tooltip: error }} style={{ maxWidth: 200, fontWeight: 'normal', fontSize: 12 }}>{error}</Text>}
+              </div>
+            }
+            style={{ flex: 1, display: 'flex', flexDirection: 'column', borderColor: error ? '#ff4d4f' : undefined }}
+            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' } }}
+          >
             <Editor
               height="100%"
               defaultLanguage="text"
@@ -122,13 +127,15 @@ const TextEncoder: React.FC = () => {
               onChange={(val) => setInput(val || '')}
               options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
-          </div>
+          </Card>
         </Col>
 
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 8, height: 32, display: 'flex', alignItems: 'center' }}>
-          </div>
-          <div style={{ flex: 1, border: '1px solid', borderColor: appTheme === 'dark' ? '#434343' : '#d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+          <Card 
+            title={<Text strong>Output (Kết quả)</Text>}
+            style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: appTheme === 'dark' ? '#141414' : '#fafafa' } }}
+          >
             <Editor
               height="100%"
               defaultLanguage="text"
@@ -136,7 +143,7 @@ const TextEncoder: React.FC = () => {
               value={output}
               options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, readOnly: true, minimap: { enabled: false }, wordWrap: 'wordWrapColumn', wordWrapColumn: 200 }}
             />
-          </div>
+          </Card>
         </Col>
       </Row>
     </div>

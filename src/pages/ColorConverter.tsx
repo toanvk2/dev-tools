@@ -60,7 +60,6 @@ const ColorConverter: React.FC = () => {
             title="Color Picker & Converter" 
             style={{ height: '100%', display: 'flex', flexDirection: 'column' }} 
             styles={{ 
-              header: { borderBottom: '1px solid #f0f0f0' },
               body: { flex: 1, display: 'flex', flexDirection: 'column', padding: 32 }
             }}
           >
