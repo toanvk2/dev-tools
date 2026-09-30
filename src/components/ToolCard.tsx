@@ -12,6 +12,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ noPadding = true, style, styles, ..
     <Card
       style={{ flex: 1, display: 'flex', flexDirection: 'column', ...style }}
       styles={{
+        ...styles,
         body: {
           flex: 1,
           padding: noPadding ? 0 : 24,
@@ -19,8 +20,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ noPadding = true, style, styles, ..
           flexDirection: 'column',
           overflow: 'hidden',
           ...(styles && typeof styles === 'object' ? (styles as any).body : {})
-        },
-        ...styles
+        }
       }}
       {...props}
     />
