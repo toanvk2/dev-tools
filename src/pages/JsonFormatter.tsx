@@ -49,7 +49,7 @@ const JsonFormatter: React.FC = () => {
       
       
       <Row gutter={24} style={{ flex: 1, minHeight: 0, margin: 0 }}>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingLeft: 0 }}>
           <ToolCard 
             title={
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -72,7 +72,7 @@ const JsonFormatter: React.FC = () => {
           </ToolCard>
         </Col>
         
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
+        <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
           <ToolCard 
             title={
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -92,7 +92,7 @@ const JsonFormatter: React.FC = () => {
             styles={{ body: { background: appTheme === 'dark' ? '#1e1e1e' : '#fff' } }}
           >
             {viewMode === 'tree' ? (
-              <div style={{ flex: 1, overflow: 'auto', padding: 16 }}>
+              <div style={{ flex: 1, minHeight: 0, overflow: 'auto', padding: 16 }}>
                 {parsedData !== null ? (
                   <ReactJson 
                     src={parsedData} 
