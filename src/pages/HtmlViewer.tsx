@@ -121,7 +121,7 @@ const HtmlViewer: React.FC = () => {
                 onChange={(value) => setHtmlCode(value || '')}
                 options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false },
                   fontSize: 14,
-                  wordWrap: 'on',
+                  wordWrap: 'wordWrapColumn', wordWrapColumn: 200,
                   formatOnPaste: true,
                   scrollBeyondLastLine: false,
                   padding: { top: 16 }

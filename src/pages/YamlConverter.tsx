@@ -80,7 +80,7 @@ const YamlConverter: React.FC = () => {
               theme={isDark ? 'vs-dark' : 'vs'}
               value={jsonCode}
               onChange={handleJsonChange}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </Card>
         </Col>
@@ -97,7 +97,7 @@ const YamlConverter: React.FC = () => {
               theme={isDark ? 'vs-dark' : 'vs'}
               value={yamlCode}
               onChange={handleYamlChange}
-              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'on', scrollBeyondLastLine: false, padding: { top: 16 } }}
+              options={{ scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 }, minimap: { enabled: false }, fontSize: 14, wordWrap: 'wordWrapColumn', wordWrapColumn: 200, scrollBeyondLastLine: false, padding: { top: 16 } }}
             />
           </Card>
         </Col>
