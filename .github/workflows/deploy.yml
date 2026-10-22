@@ -48,7 +48,7 @@ jobs:
         run: pnpm build
 
       - name: Cấu hình Github Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Tải thư mục dist lên máy chủ Pages
         uses: actions/upload-pages-artifact@v5
