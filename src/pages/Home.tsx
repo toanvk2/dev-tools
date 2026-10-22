@@ -8,8 +8,8 @@ const { Title, Paragraph, Text } = Typography;
 const Home: React.FC = () => {
   const features = [
     {
-      title: 'JSON ↔ YAML',
-      description: 'Chuyển đổi qua lại giữa định dạng JSON và YAML một cách nhanh chóng.',
+      title: 'JSON ↔ YAML ↔ ENV',
+      description: 'Chuyển đổi linh hoạt đa chiều giữa định dạng JSON, YAML và file .ENV cấu hình.',
       icon: <RetweetOutlined style={{ fontSize: 40, color: '#13c2c2' }} />,
       link: '/yaml'
     },

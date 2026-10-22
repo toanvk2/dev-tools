@@ -70,7 +70,7 @@ const AppLayout: React.FC = () => {
       case '/cron': return 'Cron Job Parser';
       case '/random': return 'Random Generator (UUID/Password)';
       case '/html-viewer': return 'HTML Viewer';
-      case '/yaml': return 'JSON ↔ YAML Converter';
+      case '/yaml': return 'JSON ↔ YAML ↔ ENV Converter';
       case '/regex': return 'Regex Tester';
       case '/url-parser': return 'URL Parser';
       case '/markdown': return 'Markdown Preview';
@@ -116,7 +116,7 @@ const AppLayout: React.FC = () => {
                       icon: <CodeOutlined/>,
                       label: <Link to="/json-formatter">JSON Formatter</Link>
                   },
-                  {key: '/yaml', icon: <RetweetOutlined/>, label: <Link to="/yaml">JSON ↔ YAML</Link>},
+                  {key: '/yaml', icon: <RetweetOutlined/>, label: <Link to="/yaml">JSON ↔ YAML ↔ ENV</Link>},
                   {
                       key: '/number-converter',
                       icon: <DatabaseOutlined/>,
