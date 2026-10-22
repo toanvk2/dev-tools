@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Cài đặt pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 9
 
@@ -57,4 +57,4 @@ jobs:
 
       - name: Deploy (Phát hành)
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
