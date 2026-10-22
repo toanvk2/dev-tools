@@ -63,7 +63,7 @@ const JsonFormatter: React.FC = () => {
               </div>
             }
             style={{ borderColor: error ? '#ff4d4f' : undefined }}
-            
+            copyText={input}
           >
             <CodeEditor defaultLanguage={useJsEval ? "javascript" : "json"} value={input}
               onChange={(val) => setInput(val || '')}
@@ -75,7 +75,7 @@ const JsonFormatter: React.FC = () => {
         <Col span={12} style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
           <ToolCard 
             title={
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <Text strong>Output</Text>
                 <Segmented
                   options={[
@@ -88,7 +88,7 @@ const JsonFormatter: React.FC = () => {
                 />
               </div>
             }
-            
+            copyText={outputRaw || (parsedData ? JSON.stringify(parsedData, null, 2) : '')}
             styles={{ body: { background: appTheme === 'dark' ? '#1e1e1e' : '#fff' } }}
           >
             {viewMode === 'tree' ? (

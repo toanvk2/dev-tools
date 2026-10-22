@@ -117,6 +117,7 @@ const TextEncoder: React.FC = () => {
                 {error && <Text type="danger" ellipsis={{ tooltip: error }} style={{ maxWidth: 200, fontWeight: 'normal', fontSize: 12 }}>{error}</Text>}
               </div>
             }
+            copyText={input}
             style={{ flex: 1, display: 'flex', flexDirection: 'column', borderColor: error ? '#ff4d4f' : undefined }}
             styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' } }}
           >
@@ -124,7 +125,6 @@ const TextEncoder: React.FC = () => {
               defaultLanguage="text"
               value={input}
               onChange={(val) => setInput(val || '')}
-              
             />
           </ToolCard>
         </Col>
@@ -132,7 +132,7 @@ const TextEncoder: React.FC = () => {
         <Col span={12} style={{ display: 'flex', flexDirection: 'column', paddingRight: 0 }}>
           <ToolCard noPadding={true} 
             title={<Text strong>Output (Kết quả)</Text>}
-            
+            copyText={output}
             styles={{ body: { flex: 1, padding: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: appTheme === 'dark' ? '#141414' : '#fafafa' } }}
           >
             <CodeEditor
